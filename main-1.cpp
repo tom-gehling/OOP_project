@@ -10,17 +10,15 @@ int main(){
     initscr();
     refresh();
 
-    Game game(20);
+    Game game(20,40);
 
     while (!game.isOver()){
         game.processInput();
-
         game.updateState();
-
         game.redraw();
     }
 
-    getch();
+    // getch();
     endwin();
 
     return 0;

@@ -8,16 +8,19 @@ class Draw{
     protected:
         int y, x;
         chtype icon;
+        char laser;
     public:
         Draw(){
             y = x = 0;
             icon = ' ';
+            laser = ' ';
         }
 
-        Draw(int y, int x, chtype ch){
+        Draw(int y, int x, chtype ch, char las){
             this->y = y;
             this->x = x;
             this->icon = ch;
+            this->laser = las;
         }
 
         int getx(){
@@ -31,5 +34,10 @@ class Draw{
         chtype getIcon(){
             return icon;
         }
+
+        char getLaser(){
+            return laser;
+        }
+
 };
 #endif

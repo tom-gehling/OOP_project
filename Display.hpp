@@ -1,32 +1,45 @@
 #ifndef DISPLAY_HPP
 #define DISPLAY_HPP
+#include <time.h>
 #include <ncurses.h>
 #include "Draw.hpp"
+#include "Ship.hpp"
 
 using namespace std;
 
 class Display{
     public:
     WINDOW * display_win;
+    WINDOW * scoreboard;
+    int height, width;
+    int start_row, start_col;
 
-    void construct(int size){
-        int yMax, xMax;
+    void construct(int height, int width){ 
+        int yMax, xMax; 
         getmaxyx(stdscr, yMax, xMax);
-        display_win = newwin(size, size*2.5, (yMax/2)-(size/2),(xMax/2.5)-(size/2));
-    }
+        this->height = height;
+        this->width = width;
+        this->start_row = (yMax/2)-(height/3);
+        this->start_col = (xMax/2)-(width/2);
+        
+        display_win = newwin(height, width, (yMax/2)-(height/3),(xMax/2)-(width/2));
+        wtimeout(display_win,500);
+        keypad(display_win, true);
+    } 
 
     Display(){
-        construct(0);
+        construct(0,0);
     }
 
-    Display(int size){
-        construct(size);
+    Display(int height, int width){
+        construct(height, width);
     }
 
     void initialise(){
         clear();
         refresh();
         noecho();
+        curs_set(0);
     }
 
     void add(Draw draw){
@@ -52,6 +65,22 @@ class Display{
 
     void refresh(){
         wrefresh(display_win);
+    }
+
+    int get_height(){
+        return height;
+    }
+
+    int get_width(){
+        return width;
+    }
+
+    int get_StartRow(){
+        return start_row;
+    }
+
+    int get_StartCol(){
+        return start_col;
     }
 };
 
