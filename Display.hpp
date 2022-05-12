@@ -1,49 +1,40 @@
 #ifndef DISPLAY_HPP
 #define DISPLAY_HPP
-#include <time.h>
 #include <ncurses.h>
 #include "Draw.hpp"
-#include "Ship.hpp"
 
 using namespace std;
 
 class Display{
     public:
     WINDOW * display_win;
-    WINDOW * scoreboard;
     int height, width;
-    int start_row, start_col;
-
-    void construct(int height, int width){ 
-        int yMax, xMax; 
-        getmaxyx(stdscr, yMax, xMax);
-        this->height = height;
-        this->width = width;
-        this->start_row = (yMax/2)-(height/3);
-        this->start_col = (xMax/2)-(width/2);
-        
-        display_win = newwin(height, width, (yMax/2)-(height/3),(xMax/2)-(width/2));
-        wtimeout(display_win,500);
-        keypad(display_win, true);
-    } 
 
     Display(){
-        construct(0,0);
+        height = 0;
+        width = 0;
     }
 
     Display(int height, int width){
-        construct(height, width);
+        this->height = height;
+        this->width = width;
     }
 
-    void initialise(){
-        clear();
-        refresh();
+    void create(){     
+        display_win = newwin(height, width, 1,1);
+
         noecho();
         curs_set(0);
-    }
 
-    void add(Draw draw){
-        addAt(draw.getx(), draw.gety(), draw.getIcon());
+        wtimeout(display_win, 500);
+        keypad(display_win, true);
+
+        box(display_win, 0, 0);
+        wrefresh(display_win);
+    } 
+
+    void draw(Draw draw){
+        addAt(draw.getx(), draw.gety(), draw.getCh());
     }
 
     void addBorder(){
@@ -57,7 +48,7 @@ class Display{
     chtype getInput(){
         return wgetch(display_win);
     }
-    
+
     void clear(){
         wclear(display_win);
         addBorder();
@@ -75,13 +66,6 @@ class Display{
         return width;
     }
 
-    int get_StartRow(){
-        return start_row;
-    }
-
-    int get_StartCol(){
-        return start_col;
-    }
 };
 
 #endif

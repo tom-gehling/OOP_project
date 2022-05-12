@@ -1,39 +1,26 @@
-#ifndef Player_HPP
-#define Player_HPP
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
 #include <ncurses.h>
-#include "Display.hpp"
 #include "Draw.hpp"
+#include "Display.hpp"
+#include "Laser.hpp"
 using namespace std;
 
 
-class Player : public Ship{
+class Player: public Ship{
     public:
+
     Player(){
-        this->x = 0;
-        this->y = 0;
-        this->icon = '>';
+        Draw(0,0,'0');
     }
 
-    Player(int y, int x){
-        this->x = x;
-        this->y = y;
-        this->icon = '>';
+    Player(int y, int x, char ch){
+        Draw(y,x,ch);
     }
 
-    void moveUp(int move){
-        x = x - move;
-    }
+    void fire(){
 
-    void moveDown(int move){
-        x = x + move;
     }
-
-    void moveRight(int move){
-        y = y + move;
-    }
-
-    void moveLeft(int move){
-        y = y - move;
-    }
+    
 };
 #endif

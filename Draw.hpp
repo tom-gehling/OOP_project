@@ -7,20 +7,17 @@ using namespace std;
 class Draw{
     protected:
         int y, x;
-        chtype icon;
-        char laser;
+        char ch;
     public:
         Draw(){
             y = x = 0;
-            icon = ' ';
-            laser = ' ';
+            ch = ' ';
         }
 
-        Draw(int y, int x, chtype ch, char las){
+        Draw(int y, int x, char ch){
             this->y = y;
             this->x = x;
-            this->icon = ch;
-            this->laser = las;
+            this->ch = ch;
         }
 
         int getx(){
@@ -31,12 +28,20 @@ class Draw{
             return y;
         }
 
-        chtype getIcon(){
-            return icon;
+        char getCh(){
+            return ch;
         }
 
-        char getLaser(){
-            return laser;
+        void setx(int x){
+            this->x = x;
+        }
+
+        void sety(int y){
+            this->y = y;
+        }
+
+        void setCh(char ch){
+            this->ch = ch;
         }
 
 };

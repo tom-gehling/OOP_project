@@ -1,5 +1,3 @@
-#include <iostream>
-#include <string>
 #include <ncurses.h>
 #include "Display.hpp"
 #include "Game.hpp"
@@ -11,14 +9,17 @@ int main(){
     refresh();
 
     Game game(20,40);
+    // window.initialise();
 
-    while (!game.isOver()){
+    // Game game(20,40);
+
+    while (!game.gameOver()){
         game.processInput();
         game.updateState();
         game.redraw();
     }
 
-    // getch();
+    getch();
     endwin();
 
     return 0;
