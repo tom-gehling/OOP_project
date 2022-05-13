@@ -20,14 +20,15 @@ class Game: public Display{
         int count;
 
     Game(){
+        display_win = Display(20,40);
         display_win.create();
     }
 
     Game(int height, int width){
         display_win = Display(height, width);
         display_win.create();
-        ship.sety(10);
-        ship.setx(2);
+        ship.sety(1);
+        ship.setx((height/2)-1);
         ship.setCh('>');
         display_win.draw(ship);
         // laser = new Laser[5];
@@ -41,7 +42,7 @@ class Game: public Display{
 
         laser.sety(-1);
         laser.setx(-1);
-        laser.setCh('~');
+        laser.setCh('-');
         display_win.draw(laser);
         // enemies = new Enemy[5];
         // for(int i =0; i<5;i++){
@@ -53,7 +54,7 @@ class Game: public Display{
 
         enemies.setx(rand()%height);
         enemies.sety((rand()%width)+width);
-        enemies.setCh('x');
+        enemies.setCh('m');
         display_win.draw(enemies);
 
     }   
@@ -85,7 +86,7 @@ class Game: public Display{
 
          case KEY_LEFT:
             if(ship.gety()>2){
-                ship.moveLeft(2);
+                ship.moveLeft(1);
                 break;
             }else{
                 break;
@@ -93,7 +94,7 @@ class Game: public Display{
 
         case KEY_RIGHT:
             if(ship.gety()<display_win.get_width()-3){
-                ship.moveRight(2);
+                ship.moveRight(1);
                 break;
             }else{
                 break;
@@ -103,8 +104,7 @@ class Game: public Display{
             // laser[count].setx(ship.getx());
             // laser[count].sety(ship.gety()+1);
 
-            laser.setx(ship.getx());
-            laser.sety(ship.gety()+1);
+            laser.shoot(&laser,&ship);
             break;
         default:
             break;
@@ -128,7 +128,7 @@ class Game: public Display{
 
 
 
-        laser.sety(laser.gety()+3);
+        laser.sety(laser.gety()+1);
         enemies.moveLeft(1);
         if(laser.getx() == enemies.getx() && laser.gety() == enemies.gety()){
             laser.destroy(enemies);

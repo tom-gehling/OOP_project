@@ -33,16 +33,19 @@ class Laser: public Draw{
         return fired;
     }
 
-    void destroy(Draw drawable){
-        drawable.setx(-1);
-        drawable.sety(-1);
+    void shoot(Laser*laser, Ship*ship){
+        laser->setx(ship->getx());
+        laser->sety(ship->gety()+1); 
     }
 
-    void collide(int x, int y, int obj_x, int obj_y){
-        x = -1;
-        y = -1;
-        obj_x = -1;
-        obj_y = -1;
+    void destroy(Draw drawableIcon){
+        drawableIcon.setx(-1);
+        drawableIcon.sety(-1);
+    }
+
+    void collide(Draw laser, Draw target){
+        destroy(laser);
+        destroy(target);
     }
 
     // bool offScreen(){

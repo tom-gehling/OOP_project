@@ -66,6 +66,8 @@ class Display{
         return width;
     }
 
+    
+
 };
 
 #endif
