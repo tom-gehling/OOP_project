@@ -8,3 +8,6 @@ playertest: PlayerTest.cpp Player.hpp
 
 drawtest: Draw.hpp DrawTest.cpp
 	g++ DrawTest.cpp -lncurses -o drawtest
+
+lasertest: LaserTest.cpp Laser.hpp
+	g++ LaserTest.cpp -lncurses -o Lasertest
