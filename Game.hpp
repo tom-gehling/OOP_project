@@ -31,6 +31,8 @@ class Game: public Display{
         ship.setx((height/2)-1);
         ship.setCh('>');
         display_win.draw(ship);
+
+
         // laser = new Laser[5];
         // count = 0;
         // for(int i =0; i<5;i++){
@@ -39,11 +41,12 @@ class Game: public Display{
         //     laser[i].setCh('~');
         //     display_win.draw(laser[i]);
         // }
-
         laser.sety(-1);
         laser.setx(-1);
         laser.setCh('-');
         display_win.draw(laser);
+
+
         // enemies = new Enemy[5];
         // for(int i =0; i<5;i++){
         //     enemies[i].setx(rand()%height);
@@ -51,7 +54,6 @@ class Game: public Display{
         //     enemies[i].setCh('x');
         //     display_win.draw(enemies[i]);
         // }
-
         enemies.setx(rand()%height);
         enemies.sety((rand()%width)+width);
         enemies.setCh('m');
@@ -127,7 +129,6 @@ class Game: public Display{
     //     }
 
 
-
         laser.sety(laser.gety()+1);
         enemies.moveLeft(1);
         if(laser.getx() == enemies.getx() && laser.gety() == enemies.gety()){
@@ -146,12 +147,6 @@ class Game: public Display{
         //     display_win.draw(enemies[i]);
         // }
         display_win.draw(enemies);
-
-
-
-        // if(laser[count].offScreen()==true){
-        //     display_win.addAt(2,2,'d');
-        // }
         display_win.refresh();
     }
 

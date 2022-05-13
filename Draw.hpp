@@ -1,11 +1,10 @@
 #ifndef DRAW_HPP
 #define DRAW_HPP
 #include <ncurses.h>
-#include "Display.hpp"
 using namespace std;
 
 class Draw{
-    protected:
+    public:
         int y, x;
         char ch;
     public:

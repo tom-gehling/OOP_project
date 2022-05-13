@@ -38,11 +38,14 @@ class Laser: public Draw{
         laser->sety(ship->gety()+1); 
     }
 
+    // still being made
     void destroy(Draw drawableIcon){
         drawableIcon.setx(-1);
         drawableIcon.sety(-1);
     }
 
+
+    // still being made
     void collide(Draw laser, Draw target){
         destroy(laser);
         destroy(target);
