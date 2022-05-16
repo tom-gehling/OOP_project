@@ -16,11 +16,13 @@ class Display{
     }
 
     Display(int height, int width){
+        initscr();
+        curs_set(FALSE); // hides cursor
         this->height = height;
         this->width = width;
     }
 
-    void create(){     
+    void create(){
         display_win = newwin(height, width, 1,1);
 
         noecho();
@@ -31,7 +33,7 @@ class Display{
 
         box(display_win, 0, 0);
         wrefresh(display_win);
-    } 
+    }
 
     void draw(Draw draw){
         addAt(draw.getx(), draw.gety(), draw.getCh());
@@ -58,6 +60,18 @@ class Display{
         wrefresh(display_win);
     }
 
+    void delete_window(){
+        delwin(display_win);
+    }
+
+    void highlight_on() {
+        wattron(display_win, A_REVERSE);
+    }
+
+    void highlight_off() {
+        wattroff(display_win, A_REVERSE);
+    }
+
     int get_height(){
         return height;
     }
@@ -66,7 +80,7 @@ class Display{
         return width;
     }
 
-    
+
 
 };
 

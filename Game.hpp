@@ -6,6 +6,7 @@
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include "Laser.hpp"
+#include "PauseQuitMenu.hpp"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ class Game: public Display{
 
     public:
         Display display_win;
-        bool game_over;
+        bool game_pause = false;
         Player ship;
         Enemy enemies;
         Laser laser;
@@ -59,8 +60,8 @@ class Game: public Display{
         enemies.setCh('m');
         display_win.draw(enemies);
 
-    }   
-    
+    }
+
 
     void processInput(){
         chtype input = display_win.getInput();
@@ -71,26 +72,26 @@ class Game: public Display{
                 ship.moveUp(1);
                 break;
             }
-            else{
+            else {
                 break;
             }
-           
+
          case KEY_DOWN:
                 if(ship.getx()<display_win.get_height()-2){
                     ship.moveDown(1);
                 break;
             }
-            else{
+            else {
                 break;
             }
-           
+
             break;
 
          case KEY_LEFT:
             if(ship.gety()>2){
                 ship.moveLeft(1);
                 break;
-            }else{
+            }else {
                 break;
             }
 
@@ -98,16 +99,25 @@ class Game: public Display{
             if(ship.gety()<display_win.get_width()-3){
                 ship.moveRight(1);
                 break;
-            }else{
+            }else {
                 break;
             }
 
-        case 's':
+        case ' ': // shooting button (spacebar)
             // laser[count].setx(ship.getx());
             // laser[count].sety(ship.gety()+1);
 
             laser.shoot(&laser,&ship);
             break;
+
+        case 'p': // pause button
+            game_pause = true; // exit condition in Display 16/05 - functionality not yet implemented
+            break;
+
+        case 'q': // quit button
+            game_pause = true; // exit condition in Display
+            break;
+
         default:
             break;
         }
@@ -134,7 +144,7 @@ class Game: public Display{
         if(laser.getx() == enemies.getx() && laser.gety() == enemies.gety()){
             laser.destroy(enemies);
             laser.destroy(laser);
-            }
+    }
     }
 
     void redraw(){
@@ -150,8 +160,12 @@ class Game: public Display{
         display_win.refresh();
     }
 
-    bool gameOver(){
-        return game_over;
+    bool gamePaused(){
+        return game_pause;
+    }
+
+    void unPause() {
+        game_pause = false;
     }
 
 };
