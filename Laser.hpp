@@ -17,6 +17,9 @@ class Laser: public Draw{
     }
 
     Laser(int y, int x, char ch){
+        this->y = y;
+        this->x = x;
+        this->ch = ch;
         Draw(y,x,ch);
         fired = false;
     }
