@@ -32,7 +32,6 @@ class Game: public Display{
         ship.setCh('>');
         display_win.draw(ship);
 
-
         // laser = new Laser[5];
         // count = 0;
         // for(int i =0; i<5;i++){

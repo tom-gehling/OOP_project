@@ -46,10 +46,10 @@ class Laser: public Draw{
 
 
     // still being made
-    void collide(Draw laser, Draw target){
-        destroy(laser);
-        destroy(target);
-    }
+    // void collide(Draw laser, Draw target){
+    //     destroy(laser);
+    //     destroy(target);
+    // }
 
     // bool offScreen(){
     //     if (x>5){
