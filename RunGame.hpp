@@ -29,8 +29,7 @@ class RunGame{
             while (start_flag) { // game can be started
 
                 while (
-                    !game.gamePaused() || 
-                !game.gameOver()){
+                !game.gamePaused() || !game.gameOver()){
                     game.processInput();
                     game.updateState();
                     game.redraw();
@@ -43,6 +42,9 @@ class RunGame{
             getch();
             endwin();
             system("clear");
+        }
+        
+        ~RunGame(){
         }
 };
 #endif

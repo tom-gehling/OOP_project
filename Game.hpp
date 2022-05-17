@@ -24,6 +24,7 @@ class Game: public Display{
         int enemyWave = 3;
         int level = 1;
         int score = 0;
+        int laserVelocity = 2;
 
 
     //initiates the display and creates a starting position 
@@ -40,13 +41,16 @@ class Game: public Display{
         srand((unsigned)time(NULL));
         display_win = Display(height, width);
         display_win.create();
+        
+        
         player.sety(1);
         player.setx((height/2)-1);
         player.setCh('>');
         display_win.draw(player);
        
+        
+
         laser = new Laser[laserAmmo];
-        count = 0;
         for(int i = 0; i<laserAmmo;i++){
             laser[i].sety(-1);
             laser[i].setx(-1);
@@ -113,6 +117,13 @@ class Game: public Display{
             laser[count].sety(player.gety()+1);
             count ++ ;
             break;
+
+        case 'p': //pauses game
+            display_win.setTimeout(-1);
+            while(display_win.getInput()!='p'){
+                display_win.setTimeout(1000);
+            }
+            break;
         default:
             break;
         }
@@ -122,7 +133,7 @@ class Game: public Display{
 
         for (int i=0; i<laserAmmo;i++){
             if (laser[i].isFired() == true){
-            laser[i].sety(laser[i].gety()+1);
+            laser[i].sety(laser[i].gety()+laserVelocity);
             } 
         }
         

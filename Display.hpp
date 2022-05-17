@@ -80,6 +80,14 @@ class Display{
         return width;
     }
 
+    char getCharAt(int y, int x){
+        return mvwinch(display_win, y, x);
+    }
+
+    void setTimeout(int timeout){
+        wtimeout(display_win, timeout);
+    }
+
 
 
 };
