@@ -2,6 +2,7 @@
 #define GAME_HPP
 #include <ncurses.h>
 #include <stdlib.h>
+#include <time.h>
 #include "Display.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
@@ -25,6 +26,7 @@ class Game: public Display{
     }
 
     Game(int height, int width){
+        srand((unsigned)time(NULL));
         display_win = Display(height, width);
         display_win.create();
         ship.sety(1);
@@ -53,7 +55,7 @@ class Game: public Display{
         //     enemies[i].setCh('x');
         //     display_win.draw(enemies[i]);
         // }
-        enemies.setx(rand()%height);
+        enemies.setx(rand()%height+1);
         enemies.sety((rand()%width)+width);
         enemies.setCh('m');
         display_win.draw(enemies);
@@ -101,7 +103,7 @@ class Game: public Display{
                 break;
             }
 
-        case 's':
+        case ' ':
             // laser[count].setx(ship.getx());
             // laser[count].sety(ship.gety()+1);
 

@@ -40,5 +40,30 @@ int main()
         cout << "Test5 Failed" << endl;
     }
 
+    Laser test6(31, 50, 'A');
+    Player target(20,20,'D');
+    test6.destroy(target);
+    if (target.gety() != -1)
+    {
+        cout << "Test6 Failed" << endl;
+    }
+    if (target.getx() != -1)
+    {
+        cout << "Test6 Failed" << endl;
+    }
+
+    Laser test7(31, 50, 'A');
+    Player ship(20,20,'D');
+    test7.shoot(&test7,&ship);
+    if (ship.gety() != test7.gety()+1)
+    {
+        cout << "Test7 Failed" << endl;
+    }
+     if (ship.getx() != test7.getx())
+    {
+        cout << "Test7 Failed" << endl;
+    }
+
+
     return 0;
 }
