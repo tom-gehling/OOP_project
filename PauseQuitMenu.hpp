@@ -23,6 +23,11 @@ class Menu: public Display {
         menu_win.create();
     }
 
+    Menu(int height, int width) {
+        menu_win = Display(height,width);
+        menu_win.create();
+    }
+
     bool operate(int menu_type) { // operates menu, calls decider and returns run_flag (a bit messy currently, to be simplified/elegantified)
         int selection = 0;
         vector<char*> options;

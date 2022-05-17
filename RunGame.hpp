@@ -28,7 +28,9 @@ class RunGame{
             Game game(height, width);
             while (start_flag) { // game can be started
 
-                while (!game.gamePaused()){
+                while (
+                    !game.gamePaused() || 
+                !game.gameOver()){
                     game.processInput();
                     game.updateState();
                     game.redraw();

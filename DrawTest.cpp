@@ -7,7 +7,6 @@ using namespace std;
 int main(){
 
     Draw test1(20,40,'A');
-
     if(test1.getx() != 40){
         cout << "Test1 Failed" << endl;
     }

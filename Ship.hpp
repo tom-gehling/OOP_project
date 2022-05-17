@@ -40,7 +40,7 @@ class Ship: public Draw{
         y -= move;
     }
 
-    virtual void fire() = 0;
+    virtual bool fire() = 0;
     
 };
 #endif
