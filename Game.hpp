@@ -8,6 +8,7 @@
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include "Laser.hpp"
+#include "Scoreboard.hpp"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ class Game: public Display{
         int level = 1;
         int score = 0;
         int laserVelocity = 2;
+      
 
 
     //initiates the display and creates a starting position 
@@ -38,9 +40,19 @@ class Game: public Display{
     //initiates the display and creates a starting position 
     //for the player, each of the enemies and each of the lasers
     Game(int height, int width){ 
+       
+        int sb_row = display_win.getStartRow()+height;
+        int sb_col = display_win.getStartCol();
+        
         srand((unsigned)time(NULL));
+        
         display_win = Display(height, width);
         display_win.create();
+
+
+        Scoreboard scoreboard(width, sb_row, sb_row);
+        score = 0;
+        scoreboard.initialise(score);
         
         
         player.sety(1);
@@ -66,6 +78,28 @@ class Game: public Display{
             display_win.draw(enemies[i]);
         }
     }   
+
+    void collision (Laser * laser){
+        for (int i = 0; i<3; i++){
+            if (display_win.getCharAt(laser->gety()+1, laser->getx())==enemies[i].getCh()||
+            display_win.getCharAt(laser->gety(), laser->getx())==enemies[i].getCh())
+            {
+                laser->destroy(enemies[i]);
+                enemies[i].moveLeft(0);
+            }
+        }
+    }
+    
+    void checkCollision(){
+         for (int i = 0; i<3; i++){
+            if (display_win.getCharAt(laser->gety()+1, laser->getx())==enemies[i].getCh()||
+            display_win.getCharAt(laser->gety(), laser->getx())==enemies[i].getCh())
+            {
+                laser->destroy(enemies[i]);
+                enemies[i].moveLeft(0);
+            }
+        }
+    }
 
 
     void processInput(){
@@ -112,6 +146,8 @@ class Game: public Display{
             if(count > laserAmmo){
                 count =0;
             }
+
+
             laser[count].fired = true;
             laser[count].setx(player.getx());
             laser[count].sety(player.gety()+1);
@@ -137,13 +173,14 @@ class Game: public Display{
             } 
         }
         
-        for (int i=0; i<5;i++){
+        for (int i=0; i<3;i++){
             enemies[i].moveLeft(1);
         } 
 
-        for(int i=0;i<5;i++){
-            for (int j=0; j<5;j++){
-                if(laser[j].getx() == enemies[i].getx() && laser[j].gety() == enemies[i].gety()){
+
+        for(int i=0;i<3;i++){
+            for (int j=0; j<laserAmmo;j++){
+                if(display_win.getCharAt(laser[j].gety()+1,laser[j].getx()) == enemies[i].getCh()){
                     laser[j].destroy(enemies[i]);
                     laser[j].destroy(laser[j]);
                 }
@@ -168,6 +205,10 @@ class Game: public Display{
 
     bool gameOver(){
         return game_over;
+    }
+
+    int getScore(){
+        return score;
     }
 
 };

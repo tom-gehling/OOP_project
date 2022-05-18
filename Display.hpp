@@ -8,11 +8,13 @@ using namespace std;
 class Display{
     public:
     WINDOW * display_win;
-    int height, width;
+    int height, width, start_row, start_col;
 
     Display(){
         height = 0;
         width = 0;
+        start_row = 0;
+        start_col = 0;
     }
 
     Display(int height, int width){
@@ -20,15 +22,18 @@ class Display{
         curs_set(FALSE); // hides cursor
         this->height = height;
         this->width = width;
+        start_row = 0;
+        start_col = 0;
     }
 
     void create(){
-        display_win = newwin(height, width, 1,1);
+        display_win = newwin(height, width, start_row, start_col);
 
         noecho();
         curs_set(0);
+        
 
-        wtimeout(display_win, 500);
+        wtimeout(display_win, 1000);
         keypad(display_win, true);
 
         box(display_win, 0, 0);
@@ -88,6 +93,13 @@ class Display{
         wtimeout(display_win, timeout);
     }
 
+    int getStartRow(){
+        return start_row;
+    }
+
+     int getStartCol(){
+        return start_col;
+    }
 
 
 };

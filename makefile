@@ -1,6 +1,6 @@
 all: main
 
-main: main-1.cpp RunGame.hpp Display.hpp Game.hpp Draw.hpp Ship.hpp Enemy.hpp Laser.hpp
+main: main-1.cpp RunGame.hpp Display.hpp Game.hpp Draw.hpp Ship.hpp Enemy.hpp Laser.hpp Scoreboard.hpp
 	g++ main-1.cpp -w -lncurses -o main
 
 playertest: PlayerTest.cpp Player.hpp
