@@ -11,19 +11,21 @@ class Scoreboard{
     public:
     
     Scoreboard(int width, int y, int x){
-        score_win = newwin(1, width, y, x);
+        score_win = newwin(2, width, y, x);
     }
 
-    void initialise(int initial_score){
+    void initialise(int initial_score, int initial_health){
         clear();
         mvwprintw(score_win, 0, 0, "Score: ");
-        updateScore(initial_score);
+        mvwprintw(score_win, 1, 0, "Health: ");
+        updateScoreboard(initial_score, initial_health);
         refresh();
 
     }
 
-    void updateScore(int score){
-        mvwprintw(score_win, 0, 30, "%11llu", score);
+    void updateScoreboard(int score, int health){
+        mvwprintw(score_win, 0, 30, "%9llu", score);
+        mvwprintw(score_win, 1, 30, "%9llu", health);
     }
 
     void clear(){

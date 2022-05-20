@@ -25,6 +25,7 @@ class Game: public Display{
         int enemyWave = 3;
         int level = 1;
         int score = 0;
+        int health = 100;
         int laserVelocity = 2;
       
 
@@ -50,9 +51,9 @@ class Game: public Display{
         display_win.create();
 
 
-        Scoreboard scoreboard(width, sb_row, sb_row);
+        Scoreboard scoreboard(width, sb_row, sb_col);
         score = 0;
-        scoreboard.initialise(score);
+        scoreboard.initialise(score, health);
         
         
         player.sety(1);
