@@ -159,7 +159,7 @@ class Game: public Display{
            {display_win.setTimeout(-1);
             Menu * pause_menu = new Menu;
             game_over = !pause_menu->operate(PAUSE_GAME);
-            display_win.setTimeout(1000);
+            display_win.setTimeout(1000); // input refresh rate
             //while(display_win.getInput()!='p'){
             //    display_win.setTimeout(1000);
             //}

@@ -36,18 +36,16 @@ class Menu: public Display {
         switch (menu_type) {
             case START: // start menu
                 options.insert(options.end(), {"START GAME","HOW TO PLAY","QUIT GAME"});
-                number_of_options = 3;
                 break;
             case PAUSE_GAME:
                 options.insert(options.end(), {"RESUME GAME","RESTART GAME", "HOW TO PLAY","QUIT GAME"});
-                number_of_options = 4;
                 break;
             case QUIT_GAME:
                 options.insert(options.end(), {"RESUME GAME","QUIT GAME"});
-                number_of_options = 2;
                 break;
         }
 
+        number_of_options = options.size();
         while (true) {
             for (int i = 0; i < number_of_options; ++i) {
                 if (i == selection) {
@@ -97,9 +95,14 @@ class Menu: public Display {
     }
 
     void run_instruction_menu() { // runs instruction menu
-        //menu_win.addText(2,5,"Welcome to Space Invaders. This game was designed for COMP SCI 1102 at The University of Adelaide. \rGAME INSTRUCTIONS:");
+        vector<char*> instructions;
+        instructions.insert(instructions.end(), {"Welcome to Space Invaders.","","GAME INSTRUCTIONS:","", "Enemies are denoted 'm'.", "Your spaceship is '>'.","SPACEBAR to destroy your enemies!"});
 
-        menu_win.addText(17,15,"UNDERSTOOD.");
+        for (int i = 0; i < instructions.size(); i++) {
+            menu_win.addText(i+2,2, instructions[i]);
+        }
+
+        menu_win.addText(18,2,"PRESS ENTER TO RETURN TO MAIN MENU");
 
         while (true) {
             chtype user_keyinput = menu_win.getInput();
