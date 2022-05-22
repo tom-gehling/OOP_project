@@ -1,7 +1,6 @@
 #ifndef RUNGAME_HPP
 #define RUNGAME_HPP
 #include "Game.hpp"
-// #include "PauseQuitMenu.hpp"
 #include <iostream>
 
 using namespace std;
@@ -16,32 +15,25 @@ class RunGame{
     public:
         RunGame(int height, int width){
 
-            initscr();
-            refresh();
-
             /* Initiate start menu */
-            // Menu open_menu;
-            // bool start_flag = false;
+            Menu open_menu;
+            bool start_flag = false;
 
-            // start_flag = open_menu.operate(START); // run the start menu
+            start_flag = open_menu.operate(START); // run the start menu
 
-            Game game(height, width);
-            // while (start_flag) { // game can be started
+            if (start_flag) {
+                Game game(height, width);
 
-                while (
-                // !game.gamePaused() || 
-                !game.gameOver()){
-                    game.processInput();
-                    game.updateState();
-                    game.redraw();
-                // }
-                // Menu ingame_menu;
-                // start_flag = ingame_menu.operate(PAUSE_GAME);
-                // game.unPause();
+
+                while (!game.gameOver()) {
+                        game.processInput();
+                        game.updateState();
+                        game.redraw();
+                }
+
+                game.closeGame();
+                getch();
             }
-
-            getch();
-            endwin();
             system("clear");
         }
 

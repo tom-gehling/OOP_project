@@ -31,7 +31,7 @@ class Display{
 
         noecho();
         curs_set(0);
-        
+
 
         wtimeout(display_win, 1000);
         keypad(display_win, true);
@@ -52,6 +52,10 @@ class Display{
         mvwaddch(display_win, y, x, ch);
     }
 
+    void addText(int y, int x, char* str) {
+        mvwprintw(display_win, y, x, str);
+    }
+
     chtype getInput(){
         return wgetch(display_win);
     }
@@ -66,6 +70,7 @@ class Display{
     }
 
     void delete_window(){
+        endwin();
         delwin(display_win);
     }
 
@@ -100,7 +105,6 @@ class Display{
      int getStartCol(){
         return start_col;
     }
-
 
 };
 

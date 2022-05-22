@@ -9,6 +9,7 @@
 #include "Enemy.hpp"
 #include "Laser.hpp"
 #include "Scoreboard.hpp"
+#include "PauseQuitMenu.hpp"
 
 using namespace std;
 
@@ -27,10 +28,10 @@ class Game: public Display{
         int score = 0;
         int health = 100;
         int laserVelocity = 2;
-      
 
 
-    //initiates the display and creates a starting position 
+
+    //initiates the display and creates a starting position
     //for the player, each of the enemies and each of the lasers
     Game(){
         display_win = Display(20,40);
@@ -38,15 +39,16 @@ class Game: public Display{
     }
 
 
-    //initiates the display and creates a starting position 
+    //initiates the display and creates a starting position
     //for the player, each of the enemies and each of the lasers
-    Game(int height, int width){ 
-       
+    Game(int height, int width){
+        game_over = false; // set this to start game
+
         int sb_row = display_win.getStartRow()+height;
         int sb_col = display_win.getStartCol();
-        
+
         srand((unsigned)time(NULL));
-        
+
         display_win = Display(height, width);
         display_win.create();
 
@@ -54,14 +56,12 @@ class Game: public Display{
         Scoreboard scoreboard(width, sb_row, sb_col);
         score = 0;
         scoreboard.initialise(score, health);
-        
-        
+
+
         player.sety(1);
         player.setx((height/2)-1);
         player.setCh('>');
         display_win.draw(player);
-       
-        
 
         laser = new Laser[laserAmmo];
         for(int i = 0; i<laserAmmo;i++){
@@ -73,12 +73,12 @@ class Game: public Display{
 
         enemies = new Enemy[3];
         for(int i =0; i<3;i++){
-            enemies[i].setx(1+rand()%(height-2)); //sets height of enemy between x = 1 to 17 
+            enemies[i].setx(1+rand()%(height-2)); //sets height of enemy between x = 1 to 17
             enemies[i].sety((rand()%width)+width);
             enemies[i].setCh('m');
             display_win.draw(enemies[i]);
         }
-    }   
+    }
 
     void collision (Laser * laser){
         for (int i = 0; i<3; i++){
@@ -90,7 +90,7 @@ class Game: public Display{
             }
         }
     }
-    
+
     void checkCollision(){
          for (int i = 0; i<3; i++){
             if (display_win.getCharAt(laser->gety()+1, laser->getx())==enemies[i].getCh()||
@@ -115,7 +115,7 @@ class Game: public Display{
             else{
                 break;
             }
-           
+
          case KEY_DOWN:
                 if(player.getx()<display_win.get_height()-2){
                     player.moveDown(1);
@@ -124,7 +124,7 @@ class Game: public Display{
             else{
                 break;
             }
-           
+
             break;
 
          case KEY_LEFT:
@@ -144,8 +144,8 @@ class Game: public Display{
             }
 
         case ' ':
-            if(count > laserAmmo){
-                count =0;
+            {if(count > laserAmmo){
+                count = 0;
             }
 
 
@@ -153,14 +153,25 @@ class Game: public Display{
             laser[count].setx(player.getx());
             laser[count].sety(player.gety()+1);
             count ++ ;
-            break;
+            break;}
 
         case 'p': //pauses game
-            display_win.setTimeout(-1);
-            while(display_win.getInput()!='p'){
-                display_win.setTimeout(1000);
-            }
-            break;
+           {display_win.setTimeout(-1);
+            Menu * pause_menu = new Menu;
+            game_over = !pause_menu->operate(PAUSE_GAME);
+            display_win.setTimeout(1000);
+            //while(display_win.getInput()!='p'){
+            //    display_win.setTimeout(1000);
+            //}
+            delete pause_menu;
+            break;}
+
+        case 'q': // quit game
+            {Menu * quit_menu = new Menu;
+            game_over = !quit_menu->operate(QUIT_GAME);
+            delete quit_menu;
+            break;}
+
         default:
             break;
         }
@@ -171,12 +182,12 @@ class Game: public Display{
         for (int i=0; i<laserAmmo;i++){
             if (laser[i].isFired() == true){
             laser[i].sety(laser[i].gety()+laserVelocity);
-            } 
+            }
         }
-        
+
         for (int i=0; i<3;i++){
             enemies[i].moveLeft(1);
-        } 
+        }
 
 
         for(int i=0;i<3;i++){
@@ -200,7 +211,7 @@ class Game: public Display{
         for(int i=0;i<3;i++){
             display_win.draw(enemies[i]);
         }
-        
+
         display_win.refresh();
     }
 
@@ -210,6 +221,13 @@ class Game: public Display{
 
     int getScore(){
         return score;
+    }
+
+    void closeGame() {
+        display_win.clear();
+        display_win.refresh();
+        endwin();
+        delwin(display_win.display_win);
     }
 
 };

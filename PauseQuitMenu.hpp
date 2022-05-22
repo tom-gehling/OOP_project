@@ -53,7 +53,7 @@ class Menu: public Display {
                 if (i == selection) {
                     menu_win.highlight_on();
                 }
-                mvwprintw(menu_win.display_win, i+1, 13, options[i]);
+                menu_win.addText(i+7,5,options[i]);
                 menu_win.highlight_off();
             }
             chtype user_keyinput = menu_win.getInput();
@@ -69,19 +69,48 @@ class Menu: public Display {
                 case ENTER:
                     menu_win.clear();
                     menu_win.refresh();
-                    menu_win.delete_window();
 
-                    if (strcmp(options[selection],"START GAME") == 0) return true;
-                    if (strcmp(options[selection],"RESTART GAME") == 0) return true; // true functionality to be implemented 16/05
-                    if (strcmp(options[selection],"RESUME GAME") == 0) return true;
-                    if (strcmp(options[selection],"HOW TO PLAY") == 0) return true; //15/05 - need to implement how to play
-                    if (strcmp(options[selection],"QUIT GAME") == 0) return false;
-
+                    if (strcmp(options[selection],"START GAME") == 0) {
+                        menu_win.delete_window();
+                        return true;
+                    }
+                    if (strcmp(options[selection],"RESTART GAME") == 0) {
+                        menu_win.delete_window();
+                        return true; // true functionality to be implemented 16/05
+                    }
+                    if (strcmp(options[selection],"RESUME GAME") == 0) {
+                        menu_win.delete_window();
+                        return true;
+                    }
+                    if (strcmp(options[selection],"HOW TO PLAY") == 0) {
+                        run_instruction_menu();
+                        break;
+                    }
+                    if (strcmp(options[selection],"QUIT GAME") == 0) {
+                        menu_win.delete_window();
+                        return false;
+                    }
                 default:
                     break;
             }
         }
     }
+
+    void run_instruction_menu() { // runs instruction menu
+        //menu_win.addText(2,5,"Welcome to Space Invaders. This game was designed for COMP SCI 1102 at The University of Adelaide. \rGAME INSTRUCTIONS:");
+
+        menu_win.addText(17,15,"UNDERSTOOD.");
+
+        while (true) {
+            chtype user_keyinput = menu_win.getInput();
+            if (user_keyinput == ENTER) {
+                    menu_win.clear();
+                    menu_win.refresh();
+                    return;
+            }
+        }
+    }
+
 };
 
 #endif
