@@ -3,4 +3,6 @@ This is a Space Invaders game coded in C++ for the Object Oriented Programming C
 
 BUG LIST (reported by in columns):
 ----------------------------------
-- When game starts, OCCASIONALLY before enemies appear, if you shoot, raises seg fault. (Gun)
+- When game starts, OCCASIONALLY before enemies appear, if you shoot, raises seg fault. (Gun detected)
+- collision + check collision are the same (Game.hpp)
+- collide, offscreen still being made on Laser.hpp
