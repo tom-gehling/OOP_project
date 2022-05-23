@@ -1,9 +1,13 @@
+/* COMP SCI 1102 - Object Oriented Programming - Space Invaders Project */
+// By Thomas Gehling, Gun (Chris) Park, Patrick Williams
+// This is the class definition of the Draw class. This class draws a character in the 'window' using NCurses.
+
 #ifndef DRAW_HPP
 #define DRAW_HPP
 #include <ncurses.h>
 using namespace std;
 
-class Draw{
+class Draw {
     public:
         int y, x;
         char ch;
@@ -13,33 +17,33 @@ class Draw{
             ch = ' ';
         }
 
-        Draw(int y, int x, char ch){
+        Draw(int y, int x, char ch) { // main constructor class
             this->y = y;
             this->x = x;
             this->ch = ch;
         }
 
-        int getx(){
+        int getx() { // returns x coordinate of drawn character
             return x;
         }
 
-        int gety(){
+        int gety() { // returns y coordinate of drawn character
             return y;
         }
 
-        char getCh(){
+        char getCh() { // returns drawn character
             return ch;
         }
 
-        void setx(int x){
+        void setx(int x) { // set x coordinate for drawn character
             this->x = x;
         }
 
-        void sety(int y){
+        void sety(int y) { // set y coordinate for drawn character
             this->y = y;
         }
 
-        void setCh(char ch){
+        void setCh(char ch){ // set drawn character
             this->ch = ch;
         }
 

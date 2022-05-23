@@ -1,3 +1,7 @@
+/* COMP SCI 1102 - Object Oriented Programming - Space Invaders Project */
+// By Thomas Gehling, Gun (Chris) Park, Patrick Williams
+// This is the class definition of the Laser class. This class defines the laser projectile '-' that users and enemy ships can shoot.
+
 #ifndef LASER_HPP
 #define LASER_HPP
 #include <ncurses.h>
@@ -9,14 +13,14 @@ using namespace std;
 
 class Laser: public Draw{
     public:
-    bool fired;
+    bool fired; // determines whether something is fired or not
 
-    Laser(){
+    Laser() {
         Draw(0,0,'0');
         fired = false;
     }
 
-    Laser(int y, int x, char ch){
+    Laser(int y, int x, char ch) {
         this->y = y;
         this->x = x;
         this->ch = ch;
@@ -24,24 +28,28 @@ class Laser: public Draw{
         fired = false;
     }
 
+    /* Moves projectile coordinate right */
     void moveRight(int move){
         y += move;
     }
 
+    /* Moves projectile coordinate left */
     void moveLeft(int move){
         y -= move;
     }
 
+    /* Returns fired result */
     bool isFired(){
         return fired;
     }
 
+    /* Shoots projectile from specified ship */
     void shoot(Laser*laser, Ship*ship){
-        laser->setx(ship->getx());
-        laser->sety(ship->gety()+1); 
+        laser->setx(ship->getx()); // spawns projectile next to ship
+        laser->sety(ship->gety()+1);
     }
 
-    // still being made
+    /* Generates destroy effect on other ships when projectile makes impact */
     void destroy(Draw drawableIcon){
         drawableIcon.setx(-1);
         drawableIcon.sety(-1);
