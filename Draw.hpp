@@ -43,5 +43,10 @@ class Draw{
             this->ch = ch;
         }
 
+        void destroy(){
+            y = -1;
+            x = -1;
+        }
+
 };
 #endif

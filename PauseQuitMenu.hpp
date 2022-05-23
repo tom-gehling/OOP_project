@@ -33,27 +33,29 @@ class Menu: public Display {
         vector<char*> options;
         int number_of_options = 0;
 
+        string start[3] = {"START GAME","HOW TO PLAY","QUIT GAME"};
+        string pause[4] = {"RESUME GAME","RESTART GAME", "HOW TO PLAY","QUIT GAME"};
+        string quit[2] = {"START GAME","HOW TO PLAY","QUIT GAME"};
+
         switch (menu_type) {
             case START: // start menu
-                options.insert(options.end(), {"START GAME","HOW TO PLAY","QUIT GAME"});
-                number_of_options = 3;
+                options.insert(options.end(), start);
                 break;
             case PAUSE_GAME:
-                options.insert(options.end(), {"RESUME GAME","RESTART GAME", "HOW TO PLAY","QUIT GAME"});
-                number_of_options = 4;
+                options.insert(options.end(), pause);
                 break;
             case QUIT_GAME:
                 options.insert(options.end(), {"RESUME GAME","QUIT GAME"});
-                number_of_options = 2;
                 break;
         }
 
+        number_of_options = options.size();
         while (true) {
             for (int i = 0; i < number_of_options; ++i) {
                 if (i == selection) {
                     menu_win.highlight_on();
                 }
-                mvwprintw(menu_win.display_win, i+1, 13, options[i]);
+                menu_win.addText(i+7,5,options[i]);
                 menu_win.highlight_off();
             }
             chtype user_keyinput = menu_win.getInput();
@@ -69,19 +71,53 @@ class Menu: public Display {
                 case ENTER:
                     menu_win.clear();
                     menu_win.refresh();
-                    menu_win.delete_window();
 
-                    if (strcmp(options[selection],"START GAME") == 0) return true;
-                    if (strcmp(options[selection],"RESTART GAME") == 0) return true; // true functionality to be implemented 16/05
-                    if (strcmp(options[selection],"RESUME GAME") == 0) return true;
-                    if (strcmp(options[selection],"HOW TO PLAY") == 0) return true; //15/05 - need to implement how to play
-                    if (strcmp(options[selection],"QUIT GAME") == 0) return false;
-
+                    if (strcmp(options[selection],"START GAME") == 0) {
+                        menu_win.delete_window();
+                        return true;
+                    }
+                    if (strcmp(options[selection],"RESTART GAME") == 0) {
+                        menu_win.delete_window();
+                        return true; // true functionality to be implemented 16/05
+                    }
+                    if (strcmp(options[selection],"RESUME GAME") == 0) {
+                        menu_win.delete_window();
+                        return true;
+                    }
+                    if (strcmp(options[selection],"HOW TO PLAY") == 0) {
+                        run_instruction_menu();
+                        break;
+                    }
+                    if (strcmp(options[selection],"QUIT GAME") == 0) {
+                        menu_win.delete_window();
+                        return false;
+                    }
                 default:
                     break;
             }
         }
     }
+
+    void run_instruction_menu() { // runs instruction menu
+        vector<char*> instructions;
+        instructions.insert(instructions.end(), {"Welcome to Space Invaders.","","GAME INSTRUCTIONS:","", "Enemies are denoted 'm'.", "Your spaceship is '>'.","SPACEBAR to destroy your enemies!"});
+
+        for (int i = 0; i < instructions.size(); i++) {
+            menu_win.addText(i+2,2, instructions[i]);
+        }
+
+        menu_win.addText(18,2,"PRESS ENTER TO RETURN TO MAIN MENU");
+
+        while (true) {
+            chtype user_keyinput = menu_win.getInput();
+            if (user_keyinput == ENTER) {
+                    menu_win.clear();
+                    menu_win.refresh();
+                    return;
+            }
+        }
+    }
+
 };
 
 #endif

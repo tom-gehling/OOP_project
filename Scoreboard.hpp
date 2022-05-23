@@ -9,23 +9,28 @@ class Scoreboard{
     private:
         WINDOW * score_win;
     public:
+
+    Scoreboard(){
+    }
     
     Scoreboard(int width, int y, int x){
-        score_win = newwin(2, width, y, x);
+        score_win = newwin(3, width, y, x);
     }
 
-    void initialise(int initial_score, int initial_health){
+    void initialise(int level, int initial_score, int initial_health){
         clear();
-        mvwprintw(score_win, 0, 0, "Score: ");
-        mvwprintw(score_win, 1, 0, "Health: ");
-        updateScoreboard(initial_score, initial_health);
+        mvwprintw(score_win, 0, 0, "Level: ");
+        mvwprintw(score_win, 1, 0, "Score: ");
+        mvwprintw(score_win, 2, 0, "Health: ");
+        updateScoreboard(level, initial_score, initial_health);
         refresh();
 
     }
 
-    void updateScoreboard(int score, int health){
-        mvwprintw(score_win, 0, 30, "%9llu", score);
-        mvwprintw(score_win, 1, 30, "%9llu", health);
+    void updateScoreboard(int level, int score, int health){
+        mvwprintw(score_win, 0, 30, "%9llu", level);
+        mvwprintw(score_win, 1, 30, "%9llu", score);
+        mvwprintw(score_win, 2, 30, "%9llu", health);
     }
 
     void clear(){

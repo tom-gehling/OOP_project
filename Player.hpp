@@ -9,14 +9,14 @@ using namespace std;
 
 class Player: public Ship{
     public:
-    Laser * laser;
+    int health;
 
     Player(){
         this->y = 0;
         this->x = 0;
         this->ch = '0';
         Draw(0,0,'0');
-        laser = new Laser[10];
+        health = 100;
     }
 
     Player(int y, int x, char ch){
@@ -24,11 +24,19 @@ class Player: public Ship{
         this->x = x;
         this->ch = ch;
         Draw(y,x,ch);
-        laser = new Laser[10];
+        health = 100;
+    }
+
+    void updateHealth(int incrementHealth){
+        health += incrementHealth;
+    }
+
+    int getHealth(){
+        return health;
     }
 
     bool fire(){
-        return laser->isFired();
+        return true;
     }
     
 };

@@ -40,6 +40,16 @@ class Ship: public Draw{
         y -= move;
     }
 
+    bool isHit(int target_y, int target_x){ 
+        float d = abs(target_y-y); 
+        if(d<1.5 && target_x == x){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     virtual bool fire() = 0;
     
 };

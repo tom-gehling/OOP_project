@@ -8,12 +8,11 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Tue May 17 17:13:01 2022
+# Make data base, printed on Fri May 20 18:12:06 2022
 
 # Variables
 
 # automatic
- 
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
 ?F = $(notdir $?)
@@ -33,6 +32,7 @@ SHELL = /bin/sh
 VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
+ 
 # makefile (from `makefile', line 1)
 MAKEFILE_LIST :=  makefile
 # environment
@@ -42,7 +42,7 @@ __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/_f/d1_167px6xxgkhxftlr3t96m0000gn/T/vscode-ipc-a978f1b7-2dda-498c-b0d9-1cc079eec99a.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/_f/d1_167px6xxgkhxftlr3t96m0000gn/T/vscode-ipc-3b07f91f-7a4c-4fe9-be19-fb7d81c15a5e.sock
 # environment
 VSCODE_CWD = /
 # environment
@@ -76,7 +76,7 @@ HOME = /Users/tomgehling
 # default
 MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/tomgehling/Library/Application Support/Code/CachedData/da15b6fd3ef856477bf6f4fb29ba1b7af717770d
+VSCODE_CODE_CACHE_PATH = /Users/tomgehling/Library/Application Support/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
 LOGNAME = tomgehling
 # environment
@@ -116,16 +116,15 @@ TMPDIR = /var/folders/_f/d1_167px6xxgkhxftlr3t96m0000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/tomgehling/Library/Application Support/Code/1.67.1-main.sock
+VSCODE_IPC_HOOK = /Users/tomgehling/Library/Application Support/Code/1.67.2-main.sock
 # makefile
 MAKEFLAGS = Rrqp
 # environment
- 
 MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.31242508.31242514
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.31464235.31464241
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
@@ -159,13 +158,13 @@ MAKELEVEL := 0
 # environment
 CONDA_PREFIX = /Users/tomgehling/opt/anaconda3
 # environment
-VSCODE_PID = 58773
+VSCODE_PID = 96769
 # environment
 _CE_CONDA = 
 # environment
 LANG = C
 # variable set hash-table stats:
-# Load=75/1024=7%, Rehash=0, Collisions=2/99=2%
+# Load=75/1024=7%, Rehash=0, Collisions=2/101=2%
 
 # Pattern-specific Variable Values
 
@@ -196,9 +195,9 @@ all: main
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/2=0%
 
 enemytest: EnemyTest.cpp Enemy.hpp
 #  Implicit rule search has not been done.
@@ -211,14 +210,13 @@ enemytest: EnemyTest.cpp Enemy.hpp
 # Not a target:
 Scoreboard.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-17 17:12:42
+#  Last modified 2022-05-20 18:03:59
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
- 
 .SUFFIXES:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -227,7 +225,7 @@ Scoreboard.hpp:
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-17 17:12:55
+#  Last modified 2022-05-20 13:13:29
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -242,7 +240,7 @@ DrawTest.cpp:
 # Not a target:
 Game.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-17 17:10:56
+#  Last modified 2022-05-20 18:10:40
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -251,7 +249,7 @@ Game.hpp:
 # Not a target:
 Draw.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-13 12:39:14
+#  Last modified 2022-05-20 18:04:02
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -260,7 +258,7 @@ Draw.hpp:
 # Not a target:
 Display.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-17 17:09:23
+#  Last modified 2022-05-20 18:04:05
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -269,7 +267,7 @@ Display.hpp:
 # Not a target:
 main-1.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-17 11:45:36
+#  Last modified 2022-05-20 18:04:05
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -296,7 +294,7 @@ LaserTest.cpp:
 # Not a target:
 Ship.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-17 14:47:32
+#  Last modified 2022-05-20 18:04:02
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -326,7 +324,7 @@ EnemyTest.cpp:
 # Not a target:
 Laser.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-17 16:40:54
+#  Last modified 2022-05-20 18:04:04
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -335,7 +333,7 @@ Laser.hpp:
 # Not a target:
 Enemy.hpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-17 12:30:24
+#  Last modified 2022-05-20 18:04:01
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -343,11 +341,29 @@ Enemy.hpp:
 
 main: main-1.cpp RunGame.hpp Display.hpp Game.hpp Draw.hpp Ship.hpp Enemy.hpp Laser.hpp Scoreboard.hpp
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-17 17:12:57
+#  Implicit/static pattern stem: `'
+#  Last modified 2022-05-20 18:09:00
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := main
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+ 
+# + := main-1.cpp RunGame.hpp Display.hpp Game.hpp Draw.hpp Ship.hpp Enemy.hpp Laser.hpp Scoreboard.hpp
+# automatic
+# | := 
+# automatic
+# < := main-1.cpp
+# automatic
+# ^ := main-1.cpp RunGame.hpp Display.hpp Game.hpp Draw.hpp Ship.hpp Enemy.hpp Laser.hpp Scoreboard.hpp
+# automatic
+# ? := Game.hpp
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+# Load=8/32=25%, Rehash=0, Collisions=1/10=10%
 #  commands to execute (from `makefile', line 4):
 	g++ main-1.cpp -w -lncurses -o main
 	
@@ -357,7 +373,6 @@ drawtest: Draw.hpp DrawTest.cpp
 #  Modification time never checked.
 #  File has not been updated.
 #  commands to execute (from `makefile', line 13):
- 
 	g++ DrawTest.cpp -lncurses -o drawtest
 	
 
@@ -370,7 +385,7 @@ playertest: PlayerTest.cpp Player.hpp
 	
 
 # files hash-table stats:
-# Load=23/1024=2%, Rehash=0, Collisions=0/54=0%
+# Load=23/1024=2%, Rehash=0, Collisions=0/55=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -382,6 +397,6 @@ playertest: PlayerTest.cpp Player.hpp
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue May 17 17:13:01 2022
+# Finished Make data base on Fri May 20 18:12:06 2022
 
  
