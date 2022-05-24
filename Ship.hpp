@@ -1,3 +1,7 @@
+/* COMP SCI 1102 - Object Oriented Programming - Space Invaders Project */
+// By Thomas Gehling, Gun (Chris) Park, Patrick Williams
+// This is the class definition of the Ship class. This is the base class that defines behaviours of player and enemy ships.
+
 #ifndef SHIP_HPP
 #define SHIP_HPP
 #include <ncurses.h>
@@ -24,6 +28,8 @@ class Ship: public Draw{
         Draw(y,x,ch);
     }
 
+    /* Moving functions - alters ships defined current coordinates */
+
     void moveUp(int move){
         x -= move;
     }
@@ -40,6 +46,7 @@ class Ship: public Draw{
         y -= move;
     }
 
+<<<<<<< HEAD
     bool isHit(int target_y, int target_x){ 
         float d = abs(target_y-y); 
         if(d<1.5 && target_x == x){
@@ -52,5 +59,9 @@ class Ship: public Draw{
 
     virtual bool fire() = 0;
     
+=======
+    virtual bool fire() = 0; // virtual function; applies different between Player & Enemy classes
+
+>>>>>>> 98cb14b6f1fc7695ba0f0ee9d8336492de9cf649
 };
 #endif

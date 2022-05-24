@@ -1,3 +1,7 @@
+/* COMP SCI 1102 - Object Oriented Programming - Space Invaders Project */
+// By Thomas Gehling, Gun (Chris) Park, Patrick Williams
+// This is the class definition of the RunGame class. This class handles the game execution process.
+
 #ifndef RUNGAME_HPP
 #define RUNGAME_HPP
 #include "Game.hpp"
@@ -11,35 +15,27 @@ using namespace std;
 #define QUIT_GAME   0
 #define ENTER       10 // ascii value of 'Enter' letter
 
-class RunGame{
+class RunGame {
     public:
         RunGame(int height, int width){
 
             /* Initiate start menu */
-            // Menu open_menu; 
-            // bool start_flag = false;
+            Menu open_menu;
+            bool start_flag = false;
+            start_flag = open_menu.operate(START); // run the start menu
 
-            // start_flag = open_menu.operate(START); // run the start menu
+            if (start_flag) { // if user selected START GAME
+                Game game(height, width); // sets up game
 
-            // if (start_flag) {
-                Game game(height, width);
-
-
-                while (!game.gameOver()) {
+                while (!game.gameOver()) { // while game still on,
                         game.processInput();
                         game.updateState();
                         game.redraw();
                 }
-                game.gameoverDisplay();
-                
-
-                // game.closeGame();
+                game.closeGame(); // cleans up window and ends
                 getch();
-            // }
-            // system("clear");
-        }
-
-        ~RunGame(){
+            }
+            system("clear"); // clear window
         }
 };
 #endif

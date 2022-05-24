@@ -1,3 +1,7 @@
+/* COMP SCI 1102 - Object Oriented Programming - Space Invaders Project */
+// By Thomas Gehling, Gun (Chris) Park, Patrick Williams
+// This is the class definition of the Game class. This is the main class that builds and combines the different elements of the game.
+
 #ifndef GAME_HPP
 #define GAME_HPP
 #include <ncurses.h>
@@ -9,11 +13,11 @@
 #include "Enemy.hpp"
 #include "Laser.hpp"
 #include "Scoreboard.hpp"
-// #include "PauseQuitMenu.hpp"
+#include "PauseQuitMenu.hpp"
 
 using namespace std;
 
-class Game: public Display{
+class Game: public Display {
 
     public:
         Display display_win;
@@ -34,6 +38,9 @@ class Game: public Display{
     Game(){
     }
 
+        /* Game init */
+        game_over = false;              // set this to start game
+        srand((unsigned)time(NULL));    // set seed for rand
 
     //initiates the display and creates a starting position
     //for the player, each of the enemies and each of the lasers
@@ -151,11 +158,13 @@ class Game: public Display{
     }
 
 
-    void processInput(){
-        chtype input = display_win.getInput();
-        switch (input)
-        {
-        case KEY_UP:
+    /* Processes user input */
+    void processInput() {
+
+        chtype input = display_win.getInput(); // gets user input
+
+        switch (input) {
+        case KEY_UP: // up arrow key moves player up
             if(player.getx()>1){
                 player.moveUp(1);
                 break;
@@ -186,8 +195,6 @@ class Game: public Display{
         case KEY_RIGHT:
             if(player.gety()<display_win.get_width()-3){
                 player.moveRight(1);
-                break;
-            }else{
                 break;
             }
 
@@ -229,6 +236,7 @@ class Game: public Display{
         }
     }
 
+    /* Auto-updates state of game */
     void updateState(){
         //updates the postition of each enemy for every frame
         //makes all generated enemies move left
@@ -309,6 +317,7 @@ class Game: public Display{
         display_win.refresh();
     }
 
+    /* Returns game_over result */
     bool gameOver(){
         return game_over;
     }

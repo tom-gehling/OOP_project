@@ -1,3 +1,7 @@
+/* COMP SCI 1102 - Object Oriented Programming - Space Invaders Project */
+// By Thomas Gehling, Gun (Chris) Park, Patrick Williams
+// This is the class definition of the Player class. This class defines the player's ship in the game.
+
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 #include <ncurses.h>
@@ -7,11 +11,11 @@
 using namespace std;
 
 
-class Player: public Ship{
+class Player: public Ship {
     public:
     int health;
 
-    Player(){
+    Player() { // default constructor
         this->y = 0;
         this->x = 0;
         this->ch = '0';
@@ -19,7 +23,7 @@ class Player: public Ship{
         health = 100;
     }
 
-    Player(int y, int x, char ch){
+    Player(int y, int x, char ch) {
         this->y = y;
         this->x = x;
         this->ch = ch;
@@ -35,9 +39,14 @@ class Player: public Ship{
         return health;
     }
 
+<<<<<<< HEAD
     bool fire(){
         return true;
+=======
+    bool fire() { // fires a laser projectile
+        return laser->isFired();
+>>>>>>> 98cb14b6f1fc7695ba0f0ee9d8336492de9cf649
     }
-    
+
 };
 #endif
