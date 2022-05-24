@@ -36,12 +36,13 @@ class Game: public Display {
 
     //default constructor which doesn't get used
     Game(){
-    }
-
         /* Game init */
         game_over = false;              // set this to start game
         srand((unsigned)time(NULL));    // set seed for rand
 
+    }
+
+        
     //initiates the display and creates a starting position
     //for the player, each of the enemies and each of the lasers
     Game(int height, int width){
