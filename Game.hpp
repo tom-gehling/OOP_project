@@ -25,19 +25,13 @@ class Game: public Display{
         Laser *enem_laser;
         int count;
         int laserAmmo = 40;
-        int enemyWave = 5;
+        int enemyWave = 2;
         int enemyCount = enemyWave;
         int level = 1;
         int score = 0;
-        int laserVelocity = 2;
 
-
-
-    //initiates the display and creates a starting position
-    //for the player, each of the enemies and each of the lasers
+    //default constructor which doesn't get used
     Game(){
-        // display_win = Display(20,40);
-        // display_win.create();
     }
 
 
@@ -51,19 +45,23 @@ class Game: public Display{
         int sb_col = display_win.getStartCol();
         count = 0;
 
+        // initialises display window for gameplay
         display_win = Display(height, width);
         display_win.create();
 
-
+        // initialises scoreboard for gameplay
         scoreboard = Scoreboard(width, sb_row, sb_col);
         scoreboard.initialise(level, score, player.getHealth());
 
-
+        //sets player position for middle left of screen
         player.sety(1);
         player.setx((height/2)-1);
         player.setCh('>');
         display_win.draw(player);
 
+
+        // creates an array of Lasers and sets their position for (-1,-1) 
+        // until they are used
         laser = new Laser[laserAmmo];
         for(int i = 0; i<laserAmmo;i++){
             laser[i].sety(-1);
@@ -72,15 +70,19 @@ class Game: public Display{
             display_win.draw(laser[i]);
         }
 
+        // creates an array of enemy Lasers and sets their position for (-1,-1) 
+        // until they are used
         enem_laser = new Laser[laserAmmo];
         for(int i = 0; i<laserAmmo;i++){
             enem_laser[i].sety(-1);
             enem_laser[i].setx(-1);
             enem_laser[i].setCh('-');
+            enem_laser[i].set_laserVelocity(2); //laser needs to be +1 more than player as it is moving in same direction as enemy
             display_win.draw(enem_laser[i]);
         }
 
-
+        // creates an array of enemies and sets their position for (-1,-1) 
+        // until they are used
         enemies = new Enemy[enemyWave];
         for(int i =0; i<enemyWave;i++){
             enemies[i].setx(1+rand()%(height-2)); //sets height of enemy between x = 1 to 17
@@ -118,7 +120,7 @@ class Game: public Display{
 
             if(player.isHit(enem_laser[i].gety(),enem_laser[i].getx())){
                 enem_laser[i].destroy();
-                player.updateHealth(-30);
+                player.updateHealth(-20);
             }
 
         } 
@@ -128,12 +130,15 @@ class Game: public Display{
     // checks to see if enemy is past the left of screen
     void checkEnemiesPast(){
         for(int i=0; i<enemyWave; i++){
-            if(enemies[i].gety() == 0){
+            if(enemies[i].gety() == 0){ //need to change to ensure all enemies pass zero exactly
                 player.updateHealth(-20);
+                enemies[i].dead();
+                enemyCount--;
             }
         }
     }
 
+    //deletes pointer to enemy ship array
     void deleteEnemies(){
         delete enemies;
     }
@@ -190,7 +195,7 @@ class Game: public Display{
             {if(count > laserAmmo){
                 count = 0;
             }
-
+            //when laser is fired by player, the position is set for one space right of the player
             laser[count].fired = true;
             laser[count].setx(player.getx());
             laser[count].sety(player.gety()+1);
@@ -198,7 +203,7 @@ class Game: public Display{
             //for now I just have the enemy shooting at the same time as player, to check functionality
             enem_laser[count].fired = true;
             enem_laser[count].setx(enemies[0].getx());
-            enem_laser[count].sety(enemies[0].gety()+1);
+            enem_laser[count].sety(enemies[0].gety()-1);
             count ++ ;
             break;}
 
@@ -225,23 +230,30 @@ class Game: public Display{
     }
 
     void updateState(){
+        //updates the postition of each enemy for every frame
+        //makes all generated enemies move left
         for (int i=0; i<enemyWave;i++){
-            enemies[i].moveLeft(1);
+            enemies[i].moveLeft(enemies[i].get_speed());
         }
+
+        //updates the postition of each player laser for every frame
+        //makes each fired laser by player move right on the screen
         for (int i=0; i<laserAmmo;i++){
             if (laser[i].isFired() == true){
-            laser[i].sety(laser[i].gety()+laserVelocity);
+            laser[i].sety(laser[i].gety()+laser[i].get_laserVelocity());
             }
         }
 
+        //updates the postition of each player laser for every frame
+        //makes each fired laser by player move left on the screen
         for (int i=0; i<laserAmmo;i++){
             if (enem_laser[i].isFired() == true){
-            enem_laser[i].sety(enem_laser[i].gety()-laserVelocity);
+            enem_laser[i].sety(enem_laser[i].gety()-enem_laser[i].get_laserVelocity());
             }
         }
 
        
-
+        // when the enemy wave has ended, this will generate a new wave, update the level and reset the enemy count
         if(enemyCount == 0){
             level +=1;
             deleteEnemies();
@@ -257,34 +269,57 @@ class Game: public Display{
             enemyCount = enemyWave;
         }
 
+        //check interactions with enemy ships and lasers
         checkCollision();
         checkEnemiesPast();
         
+
+        //game over if player's health reaches zero
         if(player.getHealth()==0){
             game_over = true;
         }
 
+
+        //updates scoreboard for the three integers
         scoreboard.updateScoreboard(level, score, player.getHealth());
     }
 
+    // redraws each drawable element on the screen
     void redraw(){
         display_win.clear();
         display_win.draw(player);
+
+        //draws all lasers that are initailised
         for(int i=0;i<laserAmmo;i++){
             display_win.draw(laser[i]);
         }
+
+        //draws all enemy lasers that are initailised
         for(int i=0;i<laserAmmo;i++){
             display_win.draw(enem_laser[i]);
         }
+
+        //draws all enemies that are initailised
         for(int i=0;i<enemyWave;i++){
             display_win.draw(enemies[i]);
         }
+
+        //refresh both display and scoreboard windows to update states
         scoreboard.refresh();
         display_win.refresh();
     }
 
     bool gameOver(){
         return game_over;
+    }
+
+    void gameoverDisplay(){
+        if(game_over == true){
+            display_win.create();
+            display_win.setTimeout(-1);
+            display_win.addText(display_win.get_height()/2,display_win.get_width()/2, "GAME OVER");
+        }
+        
     }
 
     int getScore(){

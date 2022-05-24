@@ -10,10 +10,12 @@ using namespace std;
 class Laser: public Draw{
     public:
     bool fired;
+    int laserVelocity;
 
     Laser(){
         Draw(0,0,'0');
         fired = false;
+        this->laserVelocity = 1;
     }
 
     Laser(int y, int x, char ch){
@@ -22,6 +24,7 @@ class Laser: public Draw{
         this->ch = ch;
         Draw(y,x,ch);
         fired = false;
+        this->laserVelocity = 1;
     }
 
     void moveRight(int move){
@@ -30,6 +33,14 @@ class Laser: public Draw{
 
     void moveLeft(int move){
         y -= move;
+    }
+
+    int get_laserVelocity(){
+        return laserVelocity;
+    }
+
+    void set_laserVelocity(int velocity){
+        this->laserVelocity = velocity;
     }
 
     bool isFired(){

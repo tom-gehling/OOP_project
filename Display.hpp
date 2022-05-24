@@ -10,6 +10,8 @@ class Display{
     WINDOW * display_win;
     int height, width, start_row, start_col;
 
+    
+    // default constructor for
     Display(){
         height = 0;
         width = 0;
@@ -32,8 +34,7 @@ class Display{
         noecho();
         curs_set(0);
 
-
-        wtimeout(display_win, 1000);
+        wtimeout(display_win, 200);
         keypad(display_win, true);
 
         box(display_win, 0, 0);

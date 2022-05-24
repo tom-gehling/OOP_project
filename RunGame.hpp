@@ -30,8 +30,10 @@ class RunGame{
                         game.updateState();
                         game.redraw();
                 }
+                game.gameoverDisplay();
+                
 
-                game.closeGame();
+                // game.closeGame();
                 getch();
             // }
             // system("clear");

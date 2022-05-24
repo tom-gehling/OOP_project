@@ -15,11 +15,13 @@ class Enemy: public Ship{
     Laser *laser;
     bool alive;
     int speed;
+    int laserVelocity;
 
     Enemy(){
         Draw(-1,-1,'0');
         laser = new Laser[1];
         this->alive = true;
+        this-> speed = 1;
     }
 
     Enemy(int y, int x, char ch){
@@ -29,6 +31,7 @@ class Enemy: public Ship{
         this->alive = true;
         Draw(y,x,ch);
         laser = new Laser[1];
+        this-> speed = 1;
     }
 
     bool fire(){
@@ -42,7 +45,11 @@ class Enemy: public Ship{
 
     }
 
-    void set_speed(int increment){
+    int get_speed(){
+        return speed;
+    }
+
+    void increase_speed(int increment){
         this->speed += increment;
     }
 
