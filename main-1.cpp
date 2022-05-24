@@ -9,7 +9,7 @@ using namespace std;
 
 int main() { 
 
-    RunGame(20,40); // Run game in 40x20 box
+    RunGame(); // Run game in 40x20 box
 
     return 0;
 }

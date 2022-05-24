@@ -5,6 +5,7 @@
 #ifndef MENU_HPP
 #define MENU_HPP
 #include "Display.hpp"
+#include "Game.hpp"
 #include <string.h> // for strcmp function
 
 using namespace std;
@@ -101,7 +102,6 @@ class Menu: public Display {
                     }
                     if (strcmp(options[selection],"PLAY AGAIN") == 0) {
                         menu_win.delete_window();
-                        Game game(40,20);
                         delete[] options;
                         return false; // run_flag = false means game ends
                     }

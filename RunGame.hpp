@@ -17,7 +17,7 @@ using namespace std;
 
 class RunGame {
     public:
-        RunGame(int height, int width){
+        RunGame(){
 
             /* Initiate start menu */
             Menu open_menu;
@@ -25,7 +25,7 @@ class RunGame {
             start_flag = open_menu.operate(START); // run the start menu
 
             if (start_flag) { // if user selected START GAME
-                Game game(height, width); // sets up game
+                Game game(20,40); // sets up game
 
                 while (!game.gameOver()) { // while game still on,
                         game.processInput();

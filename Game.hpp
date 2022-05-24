@@ -331,15 +331,6 @@ class Game: public Display {
         return game_over;
     }
 
-    void gameoverDisplay(){
-        if(game_over == true){
-            display_win.create();
-            display_win.setTimeout(-1);
-            display_win.addText(display_win.get_height()/2,display_win.get_width()/2, "GAME OVER");
-        }
-        
-    }
-
     int getScore(){
         return score;
     }
