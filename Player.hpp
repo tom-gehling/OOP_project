@@ -39,13 +39,8 @@ class Player: public Ship {
         return health;
     }
 
-<<<<<<< HEAD
-    bool fire(){
-        return true;
-=======
     bool fire() { // fires a laser projectile
-        return laser->isFired();
->>>>>>> 98cb14b6f1fc7695ba0f0ee9d8336492de9cf649
+        return true;
     }
 
 };

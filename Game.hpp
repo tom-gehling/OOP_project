@@ -13,7 +13,7 @@
 #include "Enemy.hpp"
 #include "Laser.hpp"
 #include "Scoreboard.hpp"
-#include "PauseQuitMenu.hpp"
+#include "Menu.hpp"
 
 using namespace std;
 
@@ -215,22 +215,22 @@ class Game: public Display {
             count ++ ;
             break;}
 
-        // case 'p': //pauses game
-        //    {display_win.setTimeout(-1);
-        //     Menu * pause_menu = new Menu;
-        //     game_over = !pause_menu->operate(PAUSE_GAME);
-        //     display_win.setTimeout(1000); // input refresh rate
-        //     //while(display_win.getInput()!='p'){
-        //     //    display_win.setTimeout(1000);
-        //     //}
-        //     delete pause_menu;
-            // break;}
+        case 'p': //pauses game
+           {display_win.setTimeout(-1);
+            Menu * pause_menu = new Menu;
+            game_over = !pause_menu->operate(PAUSE_GAME);
+            display_win.setTimeout(1000); // input refresh rate
+            //while(display_win.getInput()!='p'){
+            //    display_win.setTimeout(1000);
+            //}
+            delete pause_menu;
+            break;}
 
-        // case 'q': // quit game
-            // {Menu * quit_menu = new Menu;
-            // game_over = !quit_menu->operate(QUIT_GAME);
-            // delete quit_menu;
-            // break;}
+        case 'q': // quit game
+            {Menu * quit_menu = new Menu;
+            game_over = !quit_menu->operate(QUIT_GAME);
+            delete quit_menu;
+            break;}
 
         default:
             break;
