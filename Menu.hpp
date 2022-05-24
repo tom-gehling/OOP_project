@@ -9,6 +9,7 @@
 
 using namespace std;
 
+#define GAME_OVER   4
 #define START       3
 #define RESTART     2
 #define PAUSE_GAME  1
@@ -52,6 +53,12 @@ class Menu: public Display {
                 options[0] = "RESUME GAME";
                 options[1] = "QUIT GAME";
                 break;
+             case GAME_OVER:
+                number_of_options = 2;
+                options = new char*[number_of_options];
+                options[0] = "PLAY AGAIN";
+                options[1] = "QUIT GAME";
+                break;
         }
 
         while (true) { // run menu operation
@@ -92,6 +99,12 @@ class Menu: public Display {
                         delete[] options;
                         return false; // run_flag = false means game ends
                     }
+                    if (strcmp(options[selection],"PLAY AGAIN") == 0) {
+                        menu_win.delete_window();
+                        Game game(40,20);
+                        delete[] options;
+                        return false; // run_flag = false means game ends
+                    }
                 default:
                     break;
             }
@@ -99,16 +112,16 @@ class Menu: public Display {
     }
 
     void run_instruction_menu() { // runs "how to play" menu
-        int number_of_instructions = 8; // predefined according to instruction texts
+        int number_of_instructions = 12; // predefined according to instruction texts
         char ** instructions = new char*[number_of_instructions];
-        char * list[] = {"Welcome to Space Invaders.","","GAME INSTRUCTIONS:","", "Enemies are denoted 'm'.", "Your spaceship is '>'.","Move using your arrow keys.","SPACEBAR to destroy your enemies!"};
+        char * list[] = {"Welcome to Space Invaders.","","AIM:","Stop the enemy ships before your","health runs out!","","GAME INSTRUCTIONS:","","Your spaceship is '>'.", "Enemies are denoted 'm'.", "Move using your arrow keys.","SPACEBAR to destroy your enemies!", "", "Good luck out there!"};
 
         for (int i = 0; i < number_of_instructions; i++) {
             instructions[i] = list[i]; // populating instructions as c++ cannot handle mass assignment
             menu_win.addText(i+2,2, instructions[i]); // add instructions at specific coordinates
         }
 
-        menu_win.addText(18,2,"PRESS 'ENTER' TO RETURN TO MAIN MENU");
+        menu_win.addText(menu_win.get_height()-2,2,"PRESS 'ENTER' TO RETURN TO MAIN MENU");
 
         delete[] instructions;
         while (true) {

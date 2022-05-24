@@ -3,6 +3,8 @@
 #include "Enemy.hpp"
 #include "Ship.hpp"
 #include "Draw.hpp"
+#include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
@@ -64,6 +66,19 @@ int main(){
         if(test10.gety()!= 20+1){
         cout << "Test10 Failed" << endl;
     }
+
+    Enemy test11(20,20,'A');
+    Enemy test12(20,20,'A');
+    srand((time)(0));
+    for (int i = 0; i<4;i++){
+        cout << test11.fire() << endl;
+        for (int j = 0; i<4;i++){
+            cout << test12.fire() << endl;
+        }
+    }
+
+
+
 
     return 0;
 }

@@ -174,7 +174,7 @@ class Game: public Display {
                 break;
             }
 
-         case KEY_DOWN:
+         case KEY_DOWN: // up arrow key moves player down
                 if(player.getx()<display_win.get_height()-2){
                     player.moveDown(1);
                 break;
@@ -219,10 +219,7 @@ class Game: public Display {
            {display_win.setTimeout(-1);
             Menu * pause_menu = new Menu;
             game_over = !pause_menu->operate(PAUSE_GAME);
-            display_win.setTimeout(1000); // input refresh rate
-            //while(display_win.getInput()!='p'){
-            //    display_win.setTimeout(1000);
-            //}
+            display_win.setTimeout(200);
             delete pause_menu;
             break;}
 
@@ -237,7 +234,16 @@ class Game: public Display {
         }
     }
 
-    /* Auto-updates state of game */
+    void initiate_enemyFire(){
+        int count = 0;
+        enem_laser[count].fired = true;
+        enem_laser[count].setx(enemies[0].getx());
+        enem_laser[count].sety(enemies[0].gety()-1);
+    }
+
+
+
+    /* Updates the state of game for the next frame */
     void updateState(){
         //updates the postition of each enemy for every frame
         //makes all generated enemies move left
@@ -262,7 +268,7 @@ class Game: public Display {
         }
 
        
-        // when the enemy wave has ended, this will generate a new wave, update the level and reset the enemy count
+        // when the enemy wave has ended, this will generate a new wave of enemies, update the level and reset the enemy count
         if(enemyCount == 0){
             level +=1;
             deleteEnemies();
@@ -281,16 +287,18 @@ class Game: public Display {
         //check interactions with enemy ships and lasers
         checkCollision();
         checkEnemiesPast();
-        
+    
+        //updates scoreboard for the three integers
+        scoreboard.updateScoreboard(level, score, player.getHealth());
 
         //game over if player's health reaches zero
         if(player.getHealth()==0){
-            game_over = true;
+            display_win.clear();
+            display_win.refresh();
+            Menu * gameover_menu = new Menu;
+            game_over = !gameover_menu->operate(GAME_OVER);
+
         }
-
-
-        //updates scoreboard for the three integers
-        scoreboard.updateScoreboard(level, score, player.getHealth());
     }
 
     // redraws each drawable element on the screen
