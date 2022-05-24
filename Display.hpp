@@ -53,6 +53,14 @@ class Display {
         box(display_win,0,0);
     }
 
+    void initialise_colour(){
+        initscr();
+        raw();
+        start_color();
+        init_pair(1,COLOR_BLUE, COLOR_BLACK);
+        init_pair(2,COLOR_GREEN, COLOR_BLACK);
+    }
+
     void addAt(int y, int x, char ch) { // adds character at a specified coordinate (y,x)
         mvwaddch(display_win, y, x, ch);
     }

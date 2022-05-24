@@ -40,7 +40,7 @@ class Enemy: public Ship { // derived from Ship class
 
     // [POLYMORPHISM]  redefined fire() function from base class ship
     bool fire() { // this allows enemy ship to fire in a straight line
-        if (1+rand()%6 == 1){
+        if (1+rand()%30 == 1){
             return true;
         }
         else{

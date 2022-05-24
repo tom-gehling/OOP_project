@@ -5,7 +5,6 @@
 #ifndef MENU_HPP
 #define MENU_HPP
 #include "Display.hpp"
-#include "Game.hpp"
 #include <string.h> // for strcmp function
 
 using namespace std;
@@ -55,20 +54,18 @@ class Menu: public Display {
                 options[1] = "QUIT GAME";
                 break;
              case GAME_OVER:
-                number_of_options = 2;
-                options = new char*[number_of_options];
-                options[0] = "PLAY AGAIN";
-                options[1] = "QUIT GAME";
+                run_game_over_display();
                 break;
         }
 
         while (true) { // run menu operation
+            menu_win.addText(2,11,"SPACE INVADERS");
 
             for (int i = 0; i < number_of_options; ++i) {
                 if (i == selection) {
                     menu_win.highlight_on(); // highlight if option is selected by user arrow keys
                 }
-                menu_win.addText(i+7,5,options[i]); // generates text at those coords
+                menu_win.addText(i+menu_win.get_height()-10,menu_win.get_width()/2-7,options[i]); // generates text at those coords
                 menu_win.highlight_off();
             }
             chtype user_keyinput = menu_win.getInput(); // get user input
@@ -100,11 +97,6 @@ class Menu: public Display {
                         delete[] options;
                         return false; // run_flag = false means game ends
                     }
-                    if (strcmp(options[selection],"PLAY AGAIN") == 0) {
-                        menu_win.delete_window();
-                        delete[] options;
-                        return false; // run_flag = false means game ends
-                    }
                 default:
                     break;
             }
@@ -112,9 +104,9 @@ class Menu: public Display {
     }
 
     void run_instruction_menu() { // runs "how to play" menu
-        int number_of_instructions = 12; // predefined according to instruction texts
+        int number_of_instructions = 14; // predefined according to instruction texts
         char ** instructions = new char*[number_of_instructions];
-        char * list[] = {"Welcome to Space Invaders.","","AIM:","Stop the enemy ships before your","health runs out!","","GAME INSTRUCTIONS:","","Your spaceship is '>'.", "Enemies are denoted 'm'.", "Move using your arrow keys.","SPACEBAR to destroy your enemies!", "", "Good luck out there!"};
+        char * list[] = {"Welcome to Space Invaders!","","AIM:","Stop the enemy ships before your","health runs out!","","GAME INSTRUCTIONS:","Your spaceship is '>'", "Enemies are 'm'", "Get the '+' for more health!","", "Move using your arrow keys.","SPACEBAR to destroy your enemies!", "Good luck out there!"};
 
         for (int i = 0; i < number_of_instructions; i++) {
             instructions[i] = list[i]; // populating instructions as c++ cannot handle mass assignment
@@ -134,6 +126,22 @@ class Menu: public Display {
         }
     }
 
+    void run_game_over_display(){
+        menu_win.addText(7,menu_win.get_width()/2-10,"GAME OVER!");
+        menu_win.addText(9,menu_win.get_width()/2-16,"Thanks for playing!");
+        menu_win.addText(menu_win.get_height()-2,menu_win.get_width()/2-12,"PRESS 'ENTER' TO QUIT");
+
+        while (true) {
+            chtype user_keyinput = menu_win.getInput();
+            if (user_keyinput == ENTER) {
+                    menu_win.clear(); // clear window
+                    menu_win.refresh();
+                    menu_win.delete_window();
+                    return; // return back to menu operate function
+            }
+        }
+
+    }
 };
 
 #endif

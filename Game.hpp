@@ -14,6 +14,7 @@
 #include "Laser.hpp"
 #include "Scoreboard.hpp"
 #include "Menu.hpp"
+#include "Upgrades.hpp"
 
 using namespace std;
 
@@ -27,6 +28,7 @@ class Game: public Display {
         Enemy *enemies;
         Laser *laser;
         Laser *enem_laser;
+        Upgrades *upgrade;
         int count;
         int laserAmmo = 40;
         int enemyWave = 2;
@@ -75,6 +77,7 @@ class Game: public Display {
             laser[i].sety(-1);
             laser[i].setx(-1);
             laser[i].setCh('-');
+            laser[i].set_laserVelocity(2);
             display_win.draw(laser[i]);
         }
 
@@ -97,6 +100,14 @@ class Game: public Display {
             enemies[i].sety((rand()%width)+width);
             enemies[i].setCh('m');
             display_win.draw(enemies[i]);
+        }
+
+        upgrade = new Upgrades[10];
+        for(int i =0; i<10;i++){
+            upgrade[i].setx(-1);
+            upgrade[i].sety(-1);
+            upgrade[i].setCh('+');
+            display_win.draw(upgrade[i]);
         }
     }
 
@@ -130,8 +141,14 @@ class Game: public Display {
                 enem_laser[i].destroy();
                 player.updateHealth(-20);
             }
-
         } 
+
+        for (int i = 0; i<10; i++){
+            if(player.isHit(upgrade[i].gety(),upgrade[i].getx())){
+                upgrade[i].destroy();
+                player.updateHealth(20);
+            }
+        }
     }
 
 
@@ -207,11 +224,6 @@ class Game: public Display {
             laser[count].fired = true;
             laser[count].setx(player.getx());
             laser[count].sety(player.gety()+1);
-
-            //for now I just have the enemy shooting at the same time as player, to check functionality
-            enem_laser[count].fired = true;
-            enem_laser[count].setx(enemies[0].getx());
-            enem_laser[count].sety(enemies[0].gety()-1);
             count ++ ;
             break;}
 
@@ -234,11 +246,13 @@ class Game: public Display {
         }
     }
 
-    void initiate_enemyFire(){
-        int count = 0;
+    void initiate_enemyFire(int count){
         enem_laser[count].fired = true;
-        enem_laser[count].setx(enemies[0].getx());
-        enem_laser[count].sety(enemies[0].gety()-1);
+        enem_laser[count].setx(enemies[count].getx());
+        enem_laser[count].sety(enemies[count].gety()-1);
+        if(count>laserAmmo){
+            count = 0;
+        }
     }
 
 
@@ -261,10 +275,14 @@ class Game: public Display {
 
         //updates the postition of each player laser for every frame
         //makes each fired laser by player move left on the screen
-        for (int i=0; i<laserAmmo;i++){
-            if (enem_laser[i].isFired() == true){
-            enem_laser[i].sety(enem_laser[i].gety()-enem_laser[i].get_laserVelocity());
+        for (int i=0; i<enemyWave;i++){
+            if(enemies[i].fire()==true){
+                initiate_enemyFire(i);
             }
+            enem_laser[i].sety(enem_laser[i].gety()-enem_laser[i].get_laserVelocity());
+            // if (enem_laser[i].isFired() == true){
+            // enem_laser[i].sety(enem_laser[i].gety()-enem_laser[i].get_laserVelocity());
+            // }
         }
 
        
@@ -272,7 +290,7 @@ class Game: public Display {
         if(enemyCount == 0){
             level +=1;
             deleteEnemies();
-            enemyWave += 2;
+            enemyWave += 1;
             enemies = enemyRespawn(enemyWave);
             srand(time(0));
             for (int i=0; i<enemyWave; i++){
@@ -282,6 +300,9 @@ class Game: public Display {
                 display_win.draw(enemies[i]);
             }
             enemyCount = enemyWave;
+            //initialises a random position for health boost on game screen
+            upgrade[0].setx(1+rand()%(display_win.get_height()-2));
+            upgrade[0].sety(1+rand()%(display_win.get_width()-10));
         }
 
         //check interactions with enemy ships and lasers
@@ -297,7 +318,6 @@ class Game: public Display {
             display_win.refresh();
             Menu * gameover_menu = new Menu;
             game_over = !gameover_menu->operate(GAME_OVER);
-
         }
     }
 
@@ -321,6 +341,11 @@ class Game: public Display {
             display_win.draw(enemies[i]);
         }
 
+        for(int i=0;i<10;i++){
+            display_win.draw(upgrade[i]);
+        }
+
+
         //refresh both display and scoreboard windows to update states
         scoreboard.refresh();
         display_win.refresh();
@@ -329,6 +354,10 @@ class Game: public Display {
     /* Returns game_over result */
     bool gameOver(){
         return game_over;
+    }
+
+    void set_gameOver(bool decision){
+        game_over = decision;
     }
 
     int getScore(){
