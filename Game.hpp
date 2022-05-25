@@ -360,7 +360,7 @@ class Game: public Display {
 
 
 
-    /* ------- Implementation of end of game logic and screen close -------- */
+    /* ------- Implementation of end of game logic and screen close --------*/
     
     /* Returns game_over result */
     bool gameOver(){

@@ -42,7 +42,7 @@ class Player: public Ship {
         return health;
     }
 
-    // [POLYMORPHISM]  redefined fire() function from base class ship, defined at run time
+    // [POLYMORPHISM]  redefined fire() function from base class, Ship, defined at run time
     bool fire() { // fires a laser projectile
         fired = true;
         return fired;
