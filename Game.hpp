@@ -112,7 +112,7 @@ class Game: public Display {
     }
 
 
-    /* Gameplay cycle of major logic and drawing functions:
+    /* -----Gameplay cycle of major logic and drawing functions: ------
     - process the user input
     - update the state of the game for next frame
     - draw next frame
@@ -284,7 +284,7 @@ class Game: public Display {
     }
 
 
-    /* checks for all possibilities of collision: 
+    /* ------checks for all possibilities of collision: ---------
     - enemy v laser
     - player v enemy
     - player v enemy laser
@@ -325,7 +325,7 @@ class Game: public Display {
     }
 
 
-    /* Gameplay functionality of enemies including respawning, initiating shooting, and delete array memory */
+    /* ------ Gameplay functionality of enemies including respawning, initiating shooting, and delete array memory ------- */
 
     // checks to see if enemy is past the left of screen
     void checkEnemiesPast(){
@@ -360,7 +360,7 @@ class Game: public Display {
 
 
 
-    /* Implementation of end of game logic and screen close */
+    /* ------- Implementation of end of game logic and screen close -------- */
     
     /* Returns game_over result */
     bool gameOver(){
