@@ -13,4 +13,7 @@ drawtest: Draw.hpp DrawTest.cpp
 	g++ DrawTest.cpp -lncurses -o drawtest
 
 lasertest: LaserTest.cpp Laser.hpp
-	g++ LaserTest.cpp -lncurses -o Lasertest
+	g++ LaserTest.cpp -lncurses -o lasertest
+
+upgradestest: UpgradesTest.cpp Upgrades.hpp
+	g++ UpgradesTest.cpp -lncurses -o upgradestest

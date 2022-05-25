@@ -16,14 +16,12 @@ using namespace std;
 
 class Enemy: public Ship { // derived from Ship class
     public:
-    Laser *laser;
     bool alive;
     int speed;
     int laserVelocity;
 
     Enemy(){
         Draw(-1,-1,'0');
-        laser = new Laser[1];
         this->alive = true;
         this-> speed = 1;
     }
@@ -34,13 +32,12 @@ class Enemy: public Ship { // derived from Ship class
         this->ch = ch;
         this->alive = true;
         Draw(y,x,ch);
-        laser = new Laser[1];
         this-> speed = 1;
     }
 
-    // [POLYMORPHISM]  redefined fire() function from base class ship
-    bool fire() { // this allows enemy ship to fire in a straight line
-        if (1+rand()%30 == 1){
+       // [POLYMORPHISM]  redefined fire() function from base class, Ship, defined at run time
+    bool fire() { // this allows enemy ship to fire at a random time interval
+        if (1+rand()%60 == 1){
             return true;
         }
         else{
@@ -51,10 +48,6 @@ class Enemy: public Ship { // derived from Ship class
 
     int get_speed(){
         return speed;
-    }
-
-    void increase_speed(int increment){
-        this->speed += increment;
     }
 
     bool dead(){

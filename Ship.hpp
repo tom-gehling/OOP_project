@@ -56,6 +56,8 @@ class Ship: public Draw{
         }
     }
 
+
+    // 
     virtual bool fire() = 0;
     
 };

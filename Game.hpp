@@ -23,12 +23,12 @@ class Game: public Display {
     public:
         Display display_win;
         Scoreboard scoreboard;
-        bool game_over;
         Player player;
         Enemy *enemies;
         Laser *laser;
         Laser *enem_laser;
         Upgrades *upgrade;
+        bool game_over;
         int count;
         int laserAmmo = 40;
         int enemyWave = 2;
@@ -50,11 +50,11 @@ class Game: public Display {
     Game(int height, int width){
         srand((unsigned)time(NULL));
         game_over = false; // set this to start game
+        count = 0;
 
         int sb_row = display_win.getStartRow()+height;
         int sb_col = display_win.getStartCol();
-        count = 0;
-
+       
         // initialises display window for gameplay
         display_win = Display(height, width);
         display_win.create();
@@ -87,7 +87,7 @@ class Game: public Display {
         for(int i = 0; i<laserAmmo;i++){
             enem_laser[i].sety(-1);
             enem_laser[i].setx(-1);
-            enem_laser[i].setCh('-');
+            enem_laser[i].setCh('~');
             enem_laser[i].set_laserVelocity(2); //laser needs to be +1 more than player as it is moving in same direction as enemy
             display_win.draw(enem_laser[i]);
         }
@@ -112,69 +112,11 @@ class Game: public Display {
     }
 
 
-    //checks for all possibilities of collision: 
-    //enemy v laser
-    //player v enemy
-    //player v enemy laser
-
-    void checkCollision(){
-         for (int i = 0; i<enemyWave; i++){
-             for(int j=0; j<laserAmmo; j++){
-                if(enemies[i].isHit(laser[j].gety(),laser[j].getx())){
-                    if(enemies[i].isAlive()){
-                        enemies[i].destroy();
-                        laser[j].destroy();
-                        enemies[i].dead();
-                        enemyCount --;
-                        score += 100;
-                    }
-                }
-            }
-            if(player.isHit(enemies[i].gety(),enemies[i].getx())){
-                enemies[i].destroy();
-                player.updateHealth(-20);
-                enemies[i].dead();
-                enemyCount --;
-            }
-
-            if(player.isHit(enem_laser[i].gety(),enem_laser[i].getx())){
-                enem_laser[i].destroy();
-                player.updateHealth(-20);
-            }
-        } 
-
-        for (int i = 0; i<10; i++){
-            if(player.isHit(upgrade[i].gety(),upgrade[i].getx())){
-                upgrade[i].destroy();
-                player.updateHealth(20);
-            }
-        }
-    }
-
-
-    // checks to see if enemy is past the left of screen
-    void checkEnemiesPast(){
-        for(int i=0; i<enemyWave; i++){
-            if(enemies[i].gety() == 0){ //need to change to ensure all enemies pass zero exactly
-                player.updateHealth(-20);
-                enemies[i].dead();
-                enemyCount--;
-            }
-        }
-    }
-
-    //deletes pointer to enemy ship array
-    void deleteEnemies(){
-        delete enemies;
-    }
-
-
-    //creates a new array of enemies to be generated
-    Enemy*enemyRespawn(int newEnemies){
-        enemies = new Enemy[newEnemies];
-        return enemies;
-    }
-
+    /* Gameplay cycle of major logic and drawing functions:
+    - process the user input
+    - update the state of the game for next frame
+    - draw next frame
+    - repeat until game over */
 
     /* Processes user input */
     void processInput() {
@@ -245,16 +187,6 @@ class Game: public Display {
             break;
         }
     }
-
-    void initiate_enemyFire(int count){
-        enem_laser[count].fired = true;
-        enem_laser[count].setx(enemies[count].getx());
-        enem_laser[count].sety(enemies[count].gety()-1);
-        if(count>laserAmmo){
-            count = 0;
-        }
-    }
-
 
 
     /* Updates the state of game for the next frame */
@@ -351,23 +283,92 @@ class Game: public Display {
         display_win.refresh();
     }
 
+
+    /* checks for all possibilities of collision: 
+    - enemy v laser
+    - player v enemy
+    - player v enemy laser
+    - player v upgrade */
+
+    void checkCollision(){
+         for (int i = 0; i<enemyWave; i++){
+             for(int j=0; j<laserAmmo; j++){
+                if(enemies[i].isHit(laser[j].gety(),laser[j].getx())){
+                    if(enemies[i].isAlive()){
+                        enemies[i].destroy();
+                        laser[j].destroy();
+                        enemies[i].dead();
+                        enemyCount --;
+                        score += 100;
+                    }
+                }
+            }
+            if(player.isHit(enemies[i].gety(),enemies[i].getx())){
+                enemies[i].destroy();
+                player.updateHealth(-20);
+                enemies[i].dead();
+                enemyCount --;
+            }
+
+            if(player.isHit(enem_laser[i].gety(),enem_laser[i].getx())){
+                enem_laser[i].destroy();
+                player.updateHealth(-20);
+            }
+        } 
+
+        for (int i = 0; i<10; i++){
+            if(player.isHit(upgrade[i].gety(),upgrade[i].getx())){
+                upgrade[i].destroy();
+                player.updateHealth(20);
+            }
+        }
+    }
+
+
+    /* Gameplay functionality of enemies including respawning, initiating shooting, and delete array memory */
+
+    // checks to see if enemy is past the left of screen
+    void checkEnemiesPast(){
+        for(int i=0; i<enemyWave; i++){
+            if(enemies[i].gety() == 0){ //need to change to ensure all enemies pass zero exactly
+                player.updateHealth(-20);
+                enemies[i].dead();
+                enemyCount--;
+            }
+        }
+    }
+
+    //creates a new array of enemies to be generated
+    Enemy*enemyRespawn(int newEnemies){
+        enemies = new Enemy[newEnemies];
+        return enemies;
+    }
+
+    void initiate_enemyFire(int count){
+        enem_laser[count].fired = true;
+        enem_laser[count].setx(enemies[count].getx());
+        enem_laser[count].sety(enemies[count].gety()-1);
+        if(count>laserAmmo){
+            count = 0;
+        }
+    }
+
+    //deletes pointer to enemy ship array
+    void deleteEnemies(){
+        delete enemies;
+    }
+
+
+
+    /* Implementation of end of game logic and screen close */
+    
     /* Returns game_over result */
     bool gameOver(){
         return game_over;
     }
 
-    void set_gameOver(bool decision){
-        game_over = decision;
-    }
 
-    int getScore(){
-        return score;
-    }
-
-    int getEnemyCount(){
-        return enemyWave;
-    }
-
+    /* Close game screen*/
     void closeGame() {
         display_win.clear();
         display_win.refresh();

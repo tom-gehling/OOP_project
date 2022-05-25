@@ -103,7 +103,7 @@ class Display {
         return width;
     }
 
-    char getCharAt(int y, int x) { // get character at specified coordinates
+    chtype getCharAt(int y, int x) { // get character at specified coordinates
         return mvwinch(display_win, y, x);
     }
 
@@ -118,6 +118,7 @@ class Display {
      int getStartCol() { // get starting column of window
         return start_col;
     }
+    
 
 };
 

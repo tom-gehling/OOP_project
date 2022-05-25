@@ -54,7 +54,9 @@ class Menu: public Display {
                 options[1] = "QUIT GAME";
                 break;
              case GAME_OVER:
-                run_game_over_display();
+                if(run_game_over_display()== true){
+                    return false;
+                };
                 break;
         }
 
@@ -126,9 +128,9 @@ class Menu: public Display {
         }
     }
 
-    void run_game_over_display(){
-        menu_win.addText(7,menu_win.get_width()/2-10,"GAME OVER!");
-        menu_win.addText(9,menu_win.get_width()/2-16,"Thanks for playing!");
+    bool run_game_over_display(){
+        menu_win.addText(7,menu_win.get_width()/2-7,"GAME OVER!");
+        menu_win.addText(9,menu_win.get_width()/2-11,"Thanks for playing!");
         menu_win.addText(menu_win.get_height()-2,menu_win.get_width()/2-12,"PRESS 'ENTER' TO QUIT");
 
         while (true) {
@@ -136,11 +138,13 @@ class Menu: public Display {
             if (user_keyinput == ENTER) {
                     menu_win.clear(); // clear window
                     menu_win.refresh();
-                    menu_win.delete_window();
-                    return; // return back to menu operate function
+                    return true; // return back to menu operate function
             }
         }
 
+    }
+
+    ~Menu(){
     }
 };
 

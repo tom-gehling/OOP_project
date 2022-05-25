@@ -14,6 +14,7 @@ using namespace std;
 class Player: public Ship {
     public:
     int health;
+    bool fired;
 
     Player() { // default constructor
         this->y = 0;
@@ -21,6 +22,7 @@ class Player: public Ship {
         this->ch = '0';
         Draw(0,0,'0');
         health = 100;
+        bool fired = false;
     }
 
     Player(int y, int x, char ch) {
@@ -29,6 +31,7 @@ class Player: public Ship {
         this->ch = ch;
         Draw(y,x,ch);
         health = 100;
+        bool fired = false;
     }
 
     void updateHealth(int incrementHealth){
@@ -39,8 +42,10 @@ class Player: public Ship {
         return health;
     }
 
+    // [POLYMORPHISM]  redefined fire() function from base class ship, defined at run time
     bool fire() { // fires a laser projectile
-        return true;
+        fired = true;
+        return fired;
     }
 
 };

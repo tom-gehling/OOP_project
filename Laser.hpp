@@ -52,26 +52,5 @@ class Laser: public Draw{
     bool isFired(){
         return fired;
     }
-
-    /* Shoots projectile from specified ship */
-    void shoot(Laser*laser, Ship*ship){
-        laser->setx(ship->getx()); // spawns projectile next to ship
-        laser->sety(ship->gety()+1);
-    }
-
-
-    // still being made
-    // void collide(Draw laser, Draw target){
-    //     destroy(laser);
-    //     destroy(target);
-    // }
-
-    // bool offScreen(){
-    //     if (x>5){
-    //         return true;
-    //     }else{
-    //         return false;
-    //     }
-    // }
 };
 #endif

@@ -9,7 +9,10 @@ using namespace std;
 
 int main() { 
 
-    RunGame(); // Run game in 40x20 box
+    RunGame(); 
+    // Runs game in 40x20 box in terminal.
+    // Standard game screen used as gameplay difficulty 
+    // would become too warped if display could be any size.
 
     return 0;
 }

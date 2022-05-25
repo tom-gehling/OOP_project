@@ -1,5 +1,5 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/tomgehling/OOP_project'
-g++ main-1.cpp -w -lncurses -o main
+make: Nothing to be done for `all'.
 make: Leaving directory `/Users/tomgehling/OOP_project'
  

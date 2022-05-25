@@ -37,5 +37,6 @@ class RunGame {
             }
             system("clear"); // clear window
         }
+        
 };
 #endif
